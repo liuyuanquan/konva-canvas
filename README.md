@@ -1,5 +1,180 @@
-# Vue 3 + TypeScript + Vite
+# Konva Canvas 渲染器
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+基于 Vue 3 + TypeScript + Konva.js 的画布渲染器项目。
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## 📦 技术栈
+
+- **Vue 3** - 渐进式 JavaScript 框架
+- **TypeScript** - JavaScript 的超集，提供类型安全
+- **Vite** - 下一代前端构建工具
+- **Konva.js** - 2D Canvas 库
+- **Tailwind CSS** - 实用优先的 CSS 框架
+
+## 🚀 快速开始
+
+### 安装依赖
+
+```bash
+pnpm install
+```
+
+### 开发模式
+
+```bash
+pnpm dev
+```
+
+### 构建生产版本
+
+```bash
+pnpm build
+```
+
+### 预览生产构建
+
+```bash
+pnpm preview
+```
+
+## 📁 项目结构
+
+```
+src/
+├── Render/                  # 渲染器核心模块
+│   ├── types/              # 类型定义
+│   │   ├── config.ts       # 配置类型
+│   │   ├── instance.ts     # 实例类型
+│   │   ├── constants.ts    # 常量
+│   │   └── index.ts        # 统一导出
+│   ├── factories/          # 工厂函数
+│   │   ├── createCore.ts   # 创建 Konva Stage 和 Layers
+│   │   ├── createInstance.ts   # 创建渲染实例
+│   │   ├── registerDraws.ts    # 注册绘制函数
+│   │   └── registerEvents.ts   # 注册事件处理
+│   ├── draws/              # 绘制功能
+│   │   ├── background.ts   # 背景网格绘制
+│   │   └── ruler.ts        # 标尺绘制
+│   ├── interactions/       # 交互功能
+│   │   ├── drag.ts         # 拖拽功能
+│   │   └── zoom.ts         # 缩放功能
+│   └── index.ts            # 主入口
+└── App.vue                 # 应用入口
+```
+
+## 🎯 核心功能
+
+### 渲染器 (Render)
+
+一个功能完善的 Canvas 渲染器，支持：
+
+- ✅ **多图层管理** - floor（底层）、main（主层）、cover（覆盖层）
+- ✅ **背景网格** - 可配置的网格背景
+- ✅ **标尺系统** - 辅助定位的标尺
+- ✅ **右键拖拽** - 右键或 Ctrl+左键拖拽画布
+- ✅ **滚轮缩放** - 鼠标滚轮缩放画布
+- ✅ **类型安全** - 完整的 TypeScript 类型支持
+- ✅ **响应式布局** - 自适应容器大小
+
+### 使用示例
+
+```typescript
+import { createRender } from "./Render";
+
+// 创建渲染实例
+const render = createRender(container, {
+	width: 800,
+	height: 600,
+	showBg: true, // 显示背景网格
+	showRuler: true, // 显示标尺
+	readonly: false, // 非只读模式
+	zoom: {
+		enabled: true, // 启用缩放
+		scaleMin: 0.2, // 最小缩放 20%
+		scaleMax: 5, // 最大缩放 500%
+	},
+});
+
+// 调整尺寸
+render.resize(1000, 800);
+
+// 重绘
+render.redraw();
+
+// 销毁
+render.destroy();
+```
+
+## 🏗️ 架构设计
+
+### 设计模式
+
+- **工厂模式** - 使用工厂函数创建和初始化对象
+- **观察者模式** - 事件监听和处理
+- **策略模式** - 不同的绘制和交互策略
+- **封装原则** - 隐藏内部实现，暴露公共 API
+
+### 类型系统
+
+```typescript
+// 公共 API (用户使用)
+RenderInstance
+  - config: RenderConfig
+  - resize(width, height): void
+  - redraw(drawNames?): void
+  - destroy(): void
+  - getStageState(): StageState
+  - toStageValue(boardPos): number
+  - toBoardValue(stagePos): number
+  - changeDraggable(draggable): void
+
+// 内部实现 (不暴露给用户)
+InternalRenderInstance extends RenderInstance
+  - stage: Konva.Stage
+  - layers: RenderLayers
+  - rulerSize: number
+  - drawGroups: Map<string, Konva.Group>
+```
+
+## 🔧 配置选项
+
+### RenderConfig
+
+| 属性        | 类型         | 默认值  | 说明             |
+| ----------- | ------------ | ------- | ---------------- |
+| `width`     | `number`     | -       | 画布宽度（必填） |
+| `height`    | `number`     | -       | 画布高度（必填） |
+| `showBg`    | `boolean`    | `false` | 是否显示背景网格 |
+| `showRuler` | `boolean`    | `false` | 是否显示标尺     |
+| `readonly`  | `boolean`    | `false` | 是否为只读模式   |
+| `zoom`      | `ZoomConfig` | -       | 缩放配置         |
+
+### ZoomConfig
+
+| 属性       | 类型      | 默认值 | 说明         |
+| ---------- | --------- | ------ | ------------ |
+| `enabled`  | `boolean` | `true` | 是否启用缩放 |
+| `scaleBy`  | `number`  | `0.1`  | 缩放速度     |
+| `scaleMin` | `number`  | `0.2`  | 最小缩放比例 |
+| `scaleMax` | `number`  | `5`    | 最大缩放比例 |
+
+## 🎨 交互操作
+
+- **右键拖拽** - 按住右键或 Ctrl+左键拖动画布
+- **滚轮缩放** - 滚动鼠标滚轮缩放画布
+- **Ctrl+滚轮** - 以鼠标位置为中心缩放
+
+## 📝 开发规范
+
+- 使用 TypeScript 严格模式
+- 遵循函数式编程风格
+- 完善的类型定义和注释
+- 模块化和职责分离
+- 统一的代码风格（使用 ESLint 和 Prettier）
+
+## 📄 许可证
+
+MIT
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！

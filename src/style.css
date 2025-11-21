@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+:root {
+	--color-background: #ffffff;
+	--color-text: #2c3e50;
+}
+
+body {
+	min-height: 100vh;
+	color: var(--color-text);
+	background: var(--color-background);
+	font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+	min-height: 100vh;
+	display: flex;
+}

@@ -1,7 +1,7 @@
 {
 	"name": "konva-canvas",
 	"private": true,
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -10,6 +10,8 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
+		"konva": "^10.0.11",
+		"lodash-es": "^4.17.21",
 		"tailwindcss": "^4.1.17",
 		"vue": "^3.5.24"
 	},
@@ -17,10 +19,12 @@
 		"@commitlint/cli": "^20.1.0",
 		"@commitlint/config-conventional": "^20.0.0",
 		"@tailwindcss/vite": "^4.1.17",
+		"@types/lodash-es": "^4.17.12",
 		"@types/node": "^24.10.1",
 		"@vitejs/plugin-vue": "^6.0.1",
 		"@vue/tsconfig": "^0.8.1",
 		"husky": "^9.1.7",
+		"sass-embedded": "^1.93.3",
 		"typescript": "~5.9.3",
 		"vite": "npm:rolldown-vite@7.2.5",
 		"vue-tsc": "^3.1.4"
