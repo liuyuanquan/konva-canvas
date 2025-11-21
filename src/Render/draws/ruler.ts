@@ -1,6 +1,7 @@
 import Konva from "konva";
 import flatten from "lodash-es/flatten";
 import type { InternalRenderInstance } from "../types";
+import { DrawGroupName } from "../types";
 
 export interface RulerOptions {
 	size: number;
@@ -18,15 +19,15 @@ export function drawRuler(
 	const fontSizeMax = 12;
 
 	// 清除之前的标尺组
-	const existingGroup = render.drawGroups.get("ruler");
+	const existingGroup = render.drawGroups.get(DrawGroupName.RULER);
 	if (existingGroup) {
 		existingGroup.destroy();
 	}
 
 	// 创建新的标尺组
-	const group = new Konva.Group({ name: "ruler" });
+	const group = new Konva.Group({ name: DrawGroupName.RULER });
 	group.listening(false);
-	render.drawGroups.set("ruler", group);
+	render.drawGroups.set(DrawGroupName.RULER, group);
 
 	// 获取 stage 状态
 	const stageState = render.getStageState();

@@ -13,6 +13,36 @@ export interface ZoomConfig {
 }
 
 /**
+ * 拖拽素材数据
+ */
+export interface DropMaterialData {
+	/** 素材 URL */
+	url?: string;
+	/** 文件类型 */
+	type?: string;
+	/** 素材 ID */
+	id: string;
+	/** 素材名称 */
+	name: string;
+	/** 预览图路径 */
+	preview?: string;
+	/** 连接点信息（SVG 元件） */
+	points?: Array<{
+		x: number;
+		y: number;
+		direction?: "top" | "bottom" | "left" | "right";
+	}>;
+}
+
+/**
+ * 拖拽放置回调函数
+ */
+export type OnDropCallback = (
+	data: DropMaterialData,
+	position: { x: number; y: number }
+) => void;
+
+/**
  * 渲染器配置
  */
 export interface RenderConfig {
@@ -46,4 +76,7 @@ export interface RenderConfig {
 
 	/** 缩放相关配置 */
 	zoom?: ZoomConfig;
+
+	/** 拖拽放置回调 */
+	onDrop?: OnDropCallback;
 }

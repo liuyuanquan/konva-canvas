@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, shallowRef, onMounted } from "vue";
 import { createRender, type RenderInstance } from "./Render";
+import MaterialPanel from "./components/MaterialPanel.vue";
 
 // 容器
 const boardElement = ref<HTMLDivElement>();
@@ -104,6 +104,17 @@ const init = () => {
 						scaleMin: 0.2,
 						scaleMax: 5,
 					},
+					//
+					// 拖拽放置回调
+					onDrop: (data, position) => {
+						console.log("Drop callback:", {
+							url: data.url || data.preview,
+							type: data.type,
+							position,
+							data,
+						});
+						// TODO: 在此处理拖拽放置逻辑，例如在画布上创建元素
+					},
 				});
 			} else {
 				render.value.resize(width, height);
@@ -123,11 +134,11 @@ onMounted(() => {
 			顶栏
 		</header>
 		<section class="h-0 grow-1 flex">
-			<header
-				class="shrink-0 w-[221px] overflow-y-auto flex items-center justify-center border-r border-solid border-[#ccc]"
+			<aside
+				class="shrink-0 w-[221px] overflow-hidden border-r border-solid border-[#e8e8e8]"
 			>
-				素材面板
-			</header>
+				<MaterialPanel />
+			</aside>
 			<section
 				class="flex-1 min-w-0 overflow-hidden bg-[rgba(0,0,0,0.05)]"
 				ref="boardElement"

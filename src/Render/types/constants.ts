@@ -22,3 +22,23 @@ export const DEFAULT_ZOOM_CONFIG = {
 	/** 最大缩放比例 */
 	scaleMax: 5,
 } as const;
+
+/**
+ * 绘制组名称常量
+ */
+export const DrawGroupName = {
+	/** 背景网格 */
+	BG: "bg",
+	/** 标尺 */
+	RULER: "ruler",
+	/** 缩放信息 */
+	SCALE_INFO: "scaleInfo",
+	/** 坐标参考线 */
+	REFERENCE_LINE: "referenceLine",
+} as const;
+
+/**
+ * 绘制函数键名类型（从 DrawGroupName 的值中提取）
+ */
+export type DrawGroupNameType =
+	(typeof DrawGroupName)[keyof typeof DrawGroupName];

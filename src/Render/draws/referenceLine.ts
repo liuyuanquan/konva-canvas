@@ -1,5 +1,6 @@
 import Konva from "konva";
 import type { InternalRenderInstance } from "../types";
+import { DrawGroupName } from "../types";
 
 export interface ReferenceLineOptions {
 	/** 参考线的内边距（标尺大小） */
@@ -16,7 +17,7 @@ export function drawReferenceLine(
 	const layer = render.layers.cover;
 
 	// 移除旧的参考线组
-	const existingGroup = render.drawGroups.get("referenceLine");
+	const existingGroup = render.drawGroups.get(DrawGroupName.REFERENCE_LINE);
 	if (existingGroup) {
 		existingGroup.destroy();
 	}
@@ -29,9 +30,9 @@ export function drawReferenceLine(
 	}
 
 	// 创建新的参考线组
-	const group = new Konva.Group({
-		name: "referenceLine",
-	});
+	const group = new Konva.Group({ name: DrawGroupName.REFERENCE_LINE });
+	group.listening(false);
+	render.drawGroups.set(DrawGroupName.REFERENCE_LINE, group);
 
 	// 获取 stage 状态
 	const stageState = render.getStageState();
@@ -72,7 +73,4 @@ export function drawReferenceLine(
 
 	// 添加到 cover 层
 	layer.add(group);
-
-	// 保存到 drawGroups
-	render.drawGroups.set("referenceLine", group);
 }

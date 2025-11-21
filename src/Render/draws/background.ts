@@ -1,6 +1,7 @@
 import Konva from "konva";
 import flatten from "lodash-es/flatten";
 import type { InternalRenderInstance } from "../types";
+import { DrawGroupName } from "../types";
 
 export interface BgOptions {
 	size: number;
@@ -17,15 +18,15 @@ export function drawBg(
 	const cellSize = options.size;
 
 	// 清除之前的背景组
-	const existingGroup = render.drawGroups.get("bg");
+	const existingGroup = render.drawGroups.get(DrawGroupName.BG);
 	if (existingGroup) {
 		existingGroup.destroy();
 	}
 
 	// 创建新的背景组
-	const group = new Konva.Group({ name: "bg" });
+	const group = new Konva.Group({ name: DrawGroupName.BG });
 	group.listening(false);
-	render.drawGroups.set("bg", group);
+	render.drawGroups.set(DrawGroupName.BG, group);
 
 	// 获取 stage 状态
 	const stageState = render.getStageState();

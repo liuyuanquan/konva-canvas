@@ -1,5 +1,6 @@
 import Konva from "konva";
 import type { InternalRenderInstance } from "../types";
+import { DrawGroupName } from "../types";
 
 /**
  * 绘制缩放信息（左上角显示）
@@ -8,7 +9,7 @@ export function drawScaleInfo(render: InternalRenderInstance): void {
 	const layer = render.layers.cover;
 
 	// 移除旧的缩放信息组
-	const existingGroup = render.drawGroups.get("scaleInfo");
+	const existingGroup = render.drawGroups.get(DrawGroupName.SCALE_INFO);
 	if (existingGroup) {
 		existingGroup.destroy();
 	}
@@ -22,10 +23,12 @@ export function drawScaleInfo(render: InternalRenderInstance): void {
 
 	// 创建新的缩放信息组（y 值与标尺文字高度一致）
 	const group = new Konva.Group({
-		name: "scaleInfo",
+		name: DrawGroupName.SCALE_INFO,
 		x: render.toStageValue(-stageState.x + 10),
 		y: render.toStageValue(-stageState.y + render.rulerSize / 2 - fontSize),
 	});
+	group.listening(false);
+	render.drawGroups.set(DrawGroupName.SCALE_INFO, group);
 
 	// 创建文本
 	const text = new Konva.Text({
@@ -44,7 +47,4 @@ export function drawScaleInfo(render: InternalRenderInstance): void {
 
 	// 添加到 cover 层
 	layer.add(group);
-
-	// 保存到 drawGroups
-	render.drawGroups.set("scaleInfo", group);
 }

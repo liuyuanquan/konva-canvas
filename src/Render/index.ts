@@ -1,8 +1,5 @@
-import type {
-	RenderConfig,
-	RenderInstance,
-	InternalRenderInstance,
-} from "./types";
+import type { RenderConfig, RenderInstance } from "./types";
+import { DrawGroupName } from "./types";
 import {
 	createCore,
 	createInstance,
@@ -42,8 +39,11 @@ export function createRender(
 	// 5. 注册交互事件
 	registerEvents(internalRender, config, cleanupFunctions);
 
-	// 6. 触发初始渲染
-	internalRender.redraw();
+	// 6. 触发初始渲染（不包括参考线，参考线只在鼠标移动时绘制）
+	const initialDrawKeys = Array.from(drawFunctions.keys()).filter(
+		(key) => key !== DrawGroupName.REFERENCE_LINE
+	);
+	internalRender.redraw(initialDrawKeys);
 
 	// 7. 返回公共 API
 	return internalRender as RenderInstance;
