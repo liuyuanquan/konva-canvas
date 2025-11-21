@@ -25,12 +25,14 @@ export interface RenderConfig {
 	showBg?: boolean;
 	/** 是否显示标尺 */
 	showRuler?: boolean;
-	/** 是否显示参考线 */
+	/** 是否显示坐标参考线（跟随鼠标的十字线） */
 	showRefLine?: boolean;
 	/** 是否显示预览 */
 	showPreview?: boolean;
 	/** 是否显示右键菜单 */
 	showContextmenu?: boolean;
+	/** 是否显示缩放信息 */
+	showScaleInfo?: boolean;
 
 	/** 调整大小时是否启用吸附 */
 	attractResize?: boolean;

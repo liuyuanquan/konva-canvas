@@ -42,19 +42,19 @@ export function drawBg(
 	const startX = -Math.ceil(render.toStageValue(stageState.x) / cellSize);
 	const startY = -Math.ceil(render.toStageValue(stageState.y) / cellSize);
 
-	group.add(
-		new Konva.Rect({
-			name: "bg-border",
-			x: 0,
-			y: 0,
-			width: stageState.width,
-			height: stageState.height,
-			stroke: "rgba(255,0,0,0.2)",
-			strokeWidth: render.toStageValue(2),
-			listening: false,
-			dash: [render.toStageValue(6), render.toStageValue(6)],
-		})
-	);
+	// group.add(
+	// 	new Konva.Rect({
+	// 		name: "bg-border",
+	// 		x: 0,
+	// 		y: 0,
+	// 		width: stageState.width,
+	// 		height: stageState.height,
+	// 		stroke: "rgba(255,0,0,0.2)",
+	// 		strokeWidth: render.toStageValue(2),
+	// 		listening: false,
+	// 		dash: [render.toStageValue(6), render.toStageValue(6)],
+	// 	})
+	// );
 
 	// 绘制背景矩形
 	group.add(
@@ -110,6 +110,21 @@ export function drawBg(
 			})
 		);
 	}
+
+	// 绘制背景边框
+	group.add(
+		new Konva.Rect({
+			name: "bg-border",
+			x: 0,
+			y: 0,
+			width: stageState.width,
+			height: stageState.height,
+			stroke: "rgba(255,0,0,0.2)",
+			strokeWidth: render.toStageValue(1),
+			listening: false,
+			dash: [render.toStageValue(6), render.toStageValue(6)],
+		})
+	);
 
 	layer.add(group);
 }

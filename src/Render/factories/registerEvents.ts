@@ -1,6 +1,6 @@
 import type { InternalRenderInstance, RenderConfig } from "../types";
 import { DEFAULT_ZOOM_CONFIG } from "../types";
-import { enableDrag, enableZoom } from "../interactions";
+import { enableDrag, enableZoom, enableReferenceLine } from "../interactions";
 
 /**
  * 注册所有事件处理（拖拽、缩放等）
@@ -24,5 +24,11 @@ export function registerEvents(
 			scaleMax: config.zoom?.scaleMax ?? DEFAULT_ZOOM_CONFIG.scaleMax,
 		});
 		cleanupFunctions.push(cleanupZoom);
+	}
+
+	// 启用参考线功能（监听鼠标移动）
+	if (!config.readonly && config.showRefLine) {
+		const cleanupReferenceLine = enableReferenceLine(render);
+		cleanupFunctions.push(cleanupReferenceLine);
 	}
 }

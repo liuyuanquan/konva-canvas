@@ -90,6 +90,7 @@ const init = () => {
 					showRefLine: true,
 					showPreview: true,
 					showContextmenu: true,
+					showScaleInfo: true,
 					//
 					attractResize: true,
 					attractBg: true,

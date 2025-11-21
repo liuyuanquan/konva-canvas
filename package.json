@@ -1,7 +1,7 @@
 {
 	"name": "konva-canvas",
 	"private": true,
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -10,7 +10,7 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
-		"konva": "^10.0.11",
+		"konva": "9.3.14",
 		"lodash-es": "^4.17.21",
 		"tailwindcss": "^4.1.17",
 		"vue": "^3.5.24"

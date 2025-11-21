@@ -82,11 +82,12 @@ export function createInstance(
 			};
 		},
 
-		// 坐标转换
+		// 相对大小（基于 stage，且无视 scale）
 		toStageValue(boardPos: number): number {
 			return boardPos / stage.scaleX();
 		},
 
+		// 绝对大小（基于可视区域像素）
 		toBoardValue(stagePos: number): number {
 			return stagePos * stage.scaleX();
 		},
