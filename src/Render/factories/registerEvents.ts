@@ -38,8 +38,8 @@ export function registerEvents(
 	}
 
 	// 启用外部拖拽放置功能（从素材面板拖拽到画布）
-	if (!config.readonly && config.onDrop) {
-		const cleanupDragOutside = enableDragOutside(render, config.onDrop);
+	if (!config.readonly) {
+		const cleanupDragOutside = enableDragOutside(render);
 		cleanupFunctions.push(cleanupDragOutside);
 	}
 }

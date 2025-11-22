@@ -5,6 +5,119 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2024-11-22
+
+### ✨ Added
+
+#### 素材面板与拖拽功能
+
+- **MaterialPanel 组件** - 基于 Element Plus 的素材管理面板
+  - 矢量图形（Vector Graphics）- 支持 SVG 加载，最多 32 个
+  - 图片素材（Images）- 支持 JPG/PNG 加载
+  - GIF 动图（GIFs）- 支持 GIF 动画加载与播放
+  - 图形组合（Graphic Combinations）- 支持 JSON 配置加载
+  - 更多素材（More）- 扩展素材区域
+  - 手风琴式折叠面板（同时仅展开一个分类）
+  - 无滚动条设计
+  - 响应式卡片布局
+
+- **外部拖拽功能（Drag Outside）**
+  - 从素材面板拖拽到画布
+  - 支持 `dragenter`、`dragover`、`drop` 事件处理
+  - 自动居中鼠标位置放置素材
+  - 与参考线联动（拖拽时显示参考线）
+
+#### 素材加载系统
+
+- **统一素材加载器（Asset Loader）**
+  - `loadSvg()` - SVG 加载（支持 Blob URL + svgXML 存储）
+  - `loadImg()` - 图片加载（JPG/PNG）
+  - `loadGif()` - GIF 加载（支持 gifler 库 + onFrame 回调）
+  - `loadAsset()` - 统一加载入口
+  - `preloadAssets()` - 批量预加载
+  - `playGif()` - GIF 动画播放（基于 Konva.Animation）
+  
+- **GIF 动画支持**
+  - 使用 `gifler.js` 解析 GIF 帧
+  - Canvas 缓冲区渲染
+  - Konva.Animation 驱动帧刷新
+  - 支持每帧回调（`onFrame`）
+  - 自动管理动画生命周期
+
+- **SVG 增强加载**
+  - Fetch SVG XML 内容
+  - 创建 Blob URL 避免跨域问题
+  - 保存 `svgXML` 属性到节点，支持高级功能（序列化、动态编辑、矢量导出）
+
+### 🏗️ Architecture
+
+#### 新增模块
+
+- `components/MaterialPanel.vue` - 素材面板组件
+- `interactions/dragOutside.ts` - 外部拖拽交互
+- `utils/assetLoader.ts` - 素材加载工具
+- `types/global.d.ts` - 全局类型声明（gifler）
+
+#### 依赖管理
+
+- 新增 `@element-plus/icons-vue` - Element Plus 图标库
+- 新增 `element-plus` - Vue 3 UI 组件库
+- 新增 `unplugin-auto-import` - API 自动导入插件
+- 新增 `unplugin-vue-components` - 组件自动导入插件
+- 新增 `gifler.js`（全局脚本加载）- GIF 动画解析库
+
+#### API 改进
+
+- **移除 `onDrop` 回调** - 拖拽逻辑完全内置到 Render 模块
+- **简化 RenderConfig** - 移除 `DropMaterialData` 和 `OnDropCallback` 类型
+- **增强 `loadAsset`** - 支持 `onFrame` 回调参数
+
+### 🔧 Changed
+
+#### 函数重命名
+
+- `setupGifAnimation()` → `playGif()` - 更简洁直观的命名
+
+#### 加载策略优化
+
+- **统一使用 `Konva.Image.fromURL`** - 所有图片加载统一接口
+- **SVG Blob 化** - 提升 SVG 处理能力和安全性
+- **GIF 帧缓存** - 使用 Canvas 缓冲区提升性能
+
+#### 交互改进
+
+- **智能参考线** - 拖拽素材时自动显示参考线
+- **移除冗余 `batchDraw()`** - 依赖 Konva 内置重绘机制和 Animation
+
+### 🐛 Bug Fixes
+
+- **修复 GIF 首次拖拽不显示问题** - 通过 Konva.Animation 持续刷新
+- **修复 gifler 模块导入错误** - 改用全局脚本加载避免 ES Module 问题
+- **修复拖拽时 tooltip 阻挡问题** - 移除所有 tooltip
+- **修复拖拽时鼠标样式异常** - 优化 `dragenter` 事件处理
+
+### 🎨 UI/UX
+
+- **Element Plus 设计系统** - 统一 UI 风格
+- **方形卡片布局** - 使用 `aspect-ratio` 实现正方形素材卡片
+- **无滚动条设计** - `scrollbar-width: none` + `-ms-overflow-style: none`
+- **手风琴效果** - 同时仅展开一个素材分类
+- **拖拽反馈** - 拖拽时显示参考线，提供视觉引导
+
+### 📝 Documentation
+
+- 完善素材加载 API 注释
+- 添加 GIF 加载详细注释
+- 说明 Blob URL 使用原因
+
+### 🔐 Type Safety
+
+- 新增 `global.d.ts` 全局类型声明
+- 完善 `loadAsset` 函数类型签名
+- 移除 `DropMaterialData`、`OnDropCallback` 类型定义
+
+---
+
 ## [1.0.1] - 2024-11-22
 
 ### ✨ Added

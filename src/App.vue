@@ -104,17 +104,6 @@ const init = () => {
 						scaleMin: 0.2,
 						scaleMax: 5,
 					},
-					//
-					// 拖拽放置回调
-					onDrop: (data, position) => {
-						console.log("Drop callback:", {
-							url: data.url || data.preview,
-							type: data.type,
-							position,
-							data,
-						});
-						// TODO: 在此处理拖拽放置逻辑，例如在画布上创建元素
-					},
 				});
 			} else {
 				render.value.resize(width, height);
