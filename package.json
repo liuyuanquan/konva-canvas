@@ -3,10 +3,26 @@
 	"private": true,
 	"version": "1.0.1",
 	"type": "module",
+	"description": "基于 Konva.js 和 Vue 3 的画布编辑器，支持素材拖拽、缩放、标尺等功能",
+	"author": "liuyuanquan <522703297@qq.com>",
+	"license": "MIT",
+	"keywords": [
+		"konva",
+		"canvas",
+		"vue3",
+		"editor",
+		"draggable",
+		"material-panel"
+	],
+	"engines": {
+		"node": ">=18.0.0",
+		"pnpm": ">=8.0.0"
+	},
 	"scripts": {
 		"dev": "vite",
 		"build": "vue-tsc -b && vite build",
 		"preview": "vite preview",
+		"type-check": "vue-tsc --noEmit",
 		"prepare": "husky"
 	},
 	"dependencies": {

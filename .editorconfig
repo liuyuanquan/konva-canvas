@@ -1,0 +1,59 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# 顶级配置文件
+root = true
+
+# 所有文件
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# JavaScript/TypeScript/Vue
+# 对应 Cursor: editor.tabSize: 2, prettier.useTabs: true
+[*.{js,jsx,ts,tsx,vue}]
+indent_style = tab
+indent_size = 2
+max_line_length = 80
+
+# JSON
+[*.json]
+indent_style = tab
+indent_size = 2
+
+# Python
+# 对应 Cursor: [python] 配置
+[*.py]
+indent_style = space
+indent_size = 4
+max_line_length = 88
+
+# GLSL (Shader files)
+# 对应 Cursor: files.associations 和 [glsl]
+[*.{glsl,vert,frag}]
+indent_style = tab
+indent_size = 2
+
+# YAML
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Markdown
+[*.md]
+trim_trailing_whitespace = false
+indent_style = space
+indent_size = 2
+max_line_length = off
+
+# HTML
+[*.html]
+indent_style = tab
+indent_size = 2
+
+# CSS/SCSS/SASS
+[*.{css,scss,sass,less}]
+indent_style = tab
+indent_size = 2
+
