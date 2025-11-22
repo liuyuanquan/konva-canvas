@@ -7,6 +7,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 // https://vite.dev/config/
 export default defineConfig({
+	base: "/konva-canvas/", // GitHub Pages 部署路径
 	plugins: [
 		vue(),
 		tailwindcss(),
