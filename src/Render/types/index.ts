@@ -1,5 +1,5 @@
 // 配置相关
-export type { ZoomConfig, RenderConfig } from "./config";
+export type { RenderConfig } from "./config";
 
 // 实例相关
 export type {
@@ -7,7 +7,6 @@ export type {
 	RenderLayers,
 	CoreSetup,
 	RenderInstance,
-	InstanceContext,
 	InternalRenderInstance,
 	DrawFunction,
 } from "./instance";
@@ -20,3 +19,6 @@ export {
 	DrawGroupName,
 } from "./constants";
 export type { DrawGroupNameType } from "./constants";
+
+// 工具相关
+export type { SelectionTool } from "./tools";

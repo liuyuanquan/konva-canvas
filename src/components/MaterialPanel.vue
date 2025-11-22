@@ -524,7 +524,7 @@ const handleDragStart = (item: MaterialItem, e: DragEvent) => {
 .material-panel {
 	height: 100%;
 	overflow-y: auto;
-	background: #f5f7fa;
+	background: transparent;
 }
 
 .material-collapse {

@@ -6,3 +6,5 @@ export {
 	preloadAssets,
 	playGif,
 } from "./assetLoader";
+
+export { ignore, ignoreSelect, ignoreDraw, ignoreLink } from "./nodeFilter";

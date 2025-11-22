@@ -7,6 +7,8 @@ import { DrawGroupName } from "../types";
 export function enableReferenceLine(
 	render: InternalRenderInstance
 ): () => void {
+	const container = render.stage.container();
+
 	const handleMouseMove = () => {
 		render.redraw([DrawGroupName.REFERENCE_LINE]);
 	};
@@ -20,8 +22,8 @@ export function enableReferenceLine(
 		}
 	};
 
-	render.stage.on("mousemove", handleMouseMove);
-	render.stage.on("mouseout", handleMouseOut);
+	container.addEventListener("mousemove", handleMouseMove);
+	container.addEventListener("mouseout", handleMouseOut);
 
 	// 返回清理函数
 	return () => {

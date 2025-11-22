@@ -5,13 +5,80 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.2] - 2024-11-22
+## [1.0.3] - 2025-01-XX
+
+### ✨ Added
+
+#### 选择工具功能
+
+- **SelectionTool** - 完整的选择工具实现
+  - 支持单选和多选
+  - 支持 Ctrl/Meta 键多选
+  - 选择框拖拽选择
+  - Transformer 集成（缩放、旋转、移动）
+  - 选中节点状态管理（透明度、层次、交互状态）
+  - Hover 框显示（多选时）
+
+- **Transformer 事件处理**
+  - `mousedown` - 点击处理（多选/取消选择）
+  - `mousemove` - 鼠标移动（hover 框显示）
+  - `mouseleave` - 鼠标离开（隐藏 hover 框）
+  - `dragstart` - 拖动开始
+  - `dragmove` - 拖动中
+  - `dragend` - 拖动结束
+  - `transformstart` - 变换开始（缩放、旋转）
+  - `transform` - 变换中
+  - `transformend` - 变换结束
+
+- **节点过滤功能**
+  - `ignore()` - 忽略非素材节点
+  - `ignoreSelect()` - 忽略选择辅助元素
+  - `ignoreDraw()` - 忽略绘制组根节点
+  - `ignoreLink()` - 忽略连接线相关元素
+
+### 🏗️ Architecture
+
+#### 新增模块
+
+- `tools/selection.ts` - 选择工具实现
+- `utils/nodeFilter.ts` - 节点过滤工具
+- `types/tools.ts` - 工具类型定义
+
+#### 代码重构
+
+- **函数式编程风格** - 将类方法重构为函数式实现
+- **Builder 模式优化** - `createInstance` 内部管理状态和初始化
+- **工具注册机制** - `registerTools` 统一注册工具
+- **代码组织优化** - 按功能模块化，提高可维护性
+
+### 🔧 Changed
+
+#### API 改进
+
+- **移除 `config.zoom`** - Zoom 功能始终启用
+- **移除 `options` 参数** - `enableZoom` 简化参数
+- **移除 `scaleBy`、`scaleMin`、`scaleMax`** - 使用默认配置
+- **`selectingClear` 支持 `slient` 参数** - 控制是否静默清空
+
+#### 选择工具接口
+
+- `selectingNodes` - 使用 getter 访问器，确保获取最新值
+- `select()` - 支持节点类型检测，动态控制 Transformer 功能
+- `selectingClear(slient?)` - 支持静默清空选择
+
+### 🐛 Bug Fixes
+
+- **修复选择节点引用问题** - 使用 getter 确保外部能获取最新值
+- **修复 Transformer 事件绑定** - 完善事件清理函数
+
+## [1.0.2] - 2025-11-22
 
 ### ✨ Added
 
 #### 素材面板与拖拽功能
 
 - **MaterialPanel 组件** - 基于 Element Plus 的素材管理面板
+
   - 矢量图形（Vector Graphics）- 支持 SVG 加载，最多 32 个
   - 图片素材（Images）- 支持 JPG/PNG 加载
   - GIF 动图（GIFs）- 支持 GIF 动画加载与播放
@@ -36,8 +103,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `loadAsset()` - 统一加载入口
   - `preloadAssets()` - 批量预加载
   - `playGif()` - GIF 动画播放（基于 Konva.Animation）
-  
 - **GIF 动画支持**
+
   - 使用 `gifler.js` 解析 GIF 帧
   - Canvas 缓冲区渲染
   - Konva.Animation 驱动帧刷新
@@ -118,7 +185,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.1] - 2024-11-22
+## [1.0.1] - 2025-11-22
 
 ### ✨ Added
 
@@ -181,7 +248,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0] - 2024-11-21
+## [1.0.0] - 2025-11-21
 
 ### 🎉 Initial Release
 
@@ -260,10 +327,8 @@ src/Render/
 - `showBg` - 是否显示背景网格
 - `showRuler` - 是否显示标尺
 - `readonly` - 是否为只读模式
-- `zoom.enabled` - 是否启用缩放
-- `zoom.scaleBy` - 缩放速度（默认 0.1）
-- `zoom.scaleMin` - 最小缩放比例（默认 0.2）
-- `zoom.scaleMax` - 最大缩放比例（默认 5）
+
+> 缩放功能始终开启，使用默认配置（scaleBy: 0.1, scaleMin: 0.2, scaleMax: 5）
 
 ### 📝 Code Quality
 

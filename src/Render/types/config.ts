@@ -1,18 +1,4 @@
 /**
- * 缩放配置
- */
-export interface ZoomConfig {
-	/** 是否启用缩放功能 */
-	enabled?: boolean;
-	/** 缩放速度（默认 0.1） */
-	scaleBy?: number;
-	/** 最小缩放比例（默认 0.2） */
-	scaleMin?: number;
-	/** 最大缩放比例（默认 5） */
-	scaleMax?: number;
-}
-
-/**
  * 渲染器配置
  */
 export interface RenderConfig {
@@ -43,7 +29,4 @@ export interface RenderConfig {
 
 	/** 是否为只读模式 */
 	readonly?: boolean;
-
-	/** 缩放相关配置 */
-	zoom?: ZoomConfig;
 }

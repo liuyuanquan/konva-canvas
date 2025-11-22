@@ -1,10 +1,10 @@
 import type { InternalRenderInstance, RenderConfig } from "../types";
-import { DEFAULT_ZOOM_CONFIG } from "../types";
 import {
 	enableDrag,
 	enableZoom,
 	enableReferenceLine,
 	enableDragOutside,
+	enableSelection,
 } from "../interactions";
 
 /**
@@ -16,30 +16,26 @@ export function registerEvents(
 	cleanupFunctions: (() => void)[]
 ): void {
 	// 启用右键拖拽功能
-	if (!config.readonly) {
-		const cleanupDrag = enableDrag(render);
-		cleanupFunctions.push(cleanupDrag);
-	}
+	const cleanupDrag = enableDrag(render);
+	cleanupFunctions.push(cleanupDrag);
 
 	// 启用缩放功能
-	if (!config.readonly && config.zoom?.enabled !== false) {
-		const cleanupZoom = enableZoom(render, {
-			scaleBy: config.zoom?.scaleBy ?? DEFAULT_ZOOM_CONFIG.scaleBy,
-			scaleMin: config.zoom?.scaleMin ?? DEFAULT_ZOOM_CONFIG.scaleMin,
-			scaleMax: config.zoom?.scaleMax ?? DEFAULT_ZOOM_CONFIG.scaleMax,
-		});
-		cleanupFunctions.push(cleanupZoom);
+	const cleanupZoom = enableZoom(render);
+	cleanupFunctions.push(cleanupZoom);
+
+	if (!config.readonly) {
+		// 启用外部拖拽放置功能（从素材面板拖拽到画布）
+		const cleanupDragOutside = enableDragOutside(render);
+		cleanupFunctions.push(cleanupDragOutside);
+
+		// 启用多选器功能
+		const cleanupSelection = enableSelection(render);
+		cleanupFunctions.push(cleanupSelection);
 	}
 
 	// 启用参考线功能（监听鼠标移动）
 	if (!config.readonly && config.showRefLine) {
 		const cleanupReferenceLine = enableReferenceLine(render);
 		cleanupFunctions.push(cleanupReferenceLine);
-	}
-
-	// 启用外部拖拽放置功能（从素材面板拖拽到画布）
-	if (!config.readonly) {
-		const cleanupDragOutside = enableDragOutside(render);
-		cleanupFunctions.push(cleanupDragOutside);
 	}
 }

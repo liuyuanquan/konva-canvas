@@ -1,5 +1,6 @@
 import Konva from "konva";
 import type { RenderConfig } from "./config";
+import type { SelectionTool } from "../types";
 
 /**
  * Stage 状态
@@ -31,6 +32,9 @@ export interface CoreSetup {
 	stage: Konva.Stage;
 	layers: RenderLayers;
 	rulerSize: number;
+	groupTransformer: Konva.Group;
+	transformer: Konva.Transformer;
+	selectRect: Konva.Rect;
 }
 
 /**
@@ -54,19 +58,12 @@ export interface RenderInstance {
 
 	// 元素操作
 	changeDraggable: (draggable: boolean) => void;
-}
 
-/**
- * 实例上下文（用于创建实例 - 内部使用）
- */
-export interface InstanceContext {
-	stage: Konva.Stage;
-	layers: RenderLayers;
-	config: RenderConfig;
-	rulerSize: number;
-	drawGroups: Map<string, Konva.Group>;
-	drawFunctions: Map<string, () => void>;
-	cleanupFunctions: (() => void)[];
+	// 元素过滤（忽略特定类型的节点）
+	ignore: (node: Konva.Node) => boolean;
+	ignoreSelect: (node: Konva.Node) => boolean;
+	ignoreDraw: (node: Konva.Node) => boolean;
+	ignoreLink: (node: Konva.Node) => boolean;
 }
 
 /**
@@ -78,6 +75,14 @@ export interface InternalRenderInstance extends RenderInstance {
 	layers: RenderLayers;
 	rulerSize: number;
 	drawGroups: Map<string, Konva.Group>;
+
+	// 选择相关
+	groupTransformer: Konva.Group;
+	transformer: Konva.Transformer;
+	selectRect: Konva.Rect;
+
+	// 工具
+	selectionTool: SelectionTool;
 }
 
 /**

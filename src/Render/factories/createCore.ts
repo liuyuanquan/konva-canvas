@@ -27,6 +27,24 @@ export function createCore(
 		cover: new Konva.Layer({ id: "cover" }),
 	};
 
+	// 创建多选器层
+	const groupTransformer = new Konva.Group();
+	const transformer = new Konva.Transformer({
+		shouldOverdrawWholeArea: true, // 是否覆盖整个区域
+		borderDash: [4, 4],
+		padding: 1,
+		rotationSnaps: [0, 45, 90, 135, 180, 225, 270, 315, 360],
+		flipEnabled: false,
+	});
+	const selectRect = new Konva.Rect({
+		id: "selectRect",
+		fill: "rgba(0,0,255,0.1)",
+		visible: false,
+	});
+	groupTransformer.add(transformer);
+	groupTransformer.add(selectRect);
+	layers.cover.add(groupTransformer);
+
 	// 添加 layers 到 stage
 	stage.add(layers.floor);
 	stage.add(layers.main);
@@ -41,5 +59,12 @@ export function createCore(
 		.getNativeCanvasElement()
 		.setAttribute("data-layer-type", "cover");
 
-	return { stage, layers, rulerSize };
+	return {
+		stage,
+		layers,
+		rulerSize,
+		groupTransformer,
+		transformer,
+		selectRect,
+	};
 }

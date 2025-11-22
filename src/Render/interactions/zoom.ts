@@ -1,23 +1,12 @@
 import Konva from "konva";
 import type { InternalRenderInstance } from "../types";
-
-export interface ZoomOptions {
-	// 缩放速度
-	scaleBy?: number;
-	// 最小缩放比例
-	scaleMin?: number;
-	// 最大缩放比例
-	scaleMax?: number;
-}
+import { DEFAULT_ZOOM_CONFIG } from "../types";
 
 /**
- * 启用滚轮缩放功能
+ * 启用滚轮缩放功能（使用默认配置）
  */
-export function enableZoom(
-	render: InternalRenderInstance,
-	options: ZoomOptions = {}
-): () => void {
-	const { scaleBy = 0.1, scaleMin = 0.2, scaleMax = 5 } = options;
+export function enableZoom(render: InternalRenderInstance): () => void {
+	const { scaleBy, scaleMin, scaleMax } = DEFAULT_ZOOM_CONFIG;
 
 	const stage = render.stage;
 

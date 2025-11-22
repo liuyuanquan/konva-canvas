@@ -12,24 +12,24 @@ export function registerDraws(
 ): void {
 	const { rulerSize } = render;
 
-	// 注册背景绘制
+	// 背景
 	if (!config.readonly && config.showBg) {
 		drawFunctions.set(DrawGroupName.BG, () => drawBg(render, { size: 20 }));
 	}
 
-	// 注册标尺绘制
+	// 标尺
 	if (!config.readonly && config.showRuler) {
 		drawFunctions.set(DrawGroupName.RULER, () =>
 			drawRuler(render, { size: rulerSize })
 		);
 	}
 
-	// 注册缩放信息绘制
+	// 左上角缩放信息
 	if (!config.readonly && config.showScaleInfo) {
 		drawFunctions.set(DrawGroupName.SCALE_INFO, () => drawScaleInfo(render));
 	}
 
-	// 注册参考线绘制
+	// 参考线
 	if (!config.readonly && config.showRefLine) {
 		drawFunctions.set(DrawGroupName.REFERENCE_LINE, () =>
 			drawReferenceLine(render, { padding: rulerSize })

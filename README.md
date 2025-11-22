@@ -82,16 +82,11 @@ import { createRender } from "./Render";
 
 // 创建渲染实例
 const render = createRender(container, {
-	width: 800,
-	height: 600,
-	showBg: true, // 显示背景网格
-	showRuler: true, // 显示标尺
-	readonly: false, // 非只读模式
-	zoom: {
-		enabled: true, // 启用缩放
-		scaleMin: 0.2, // 最小缩放 20%
-		scaleMax: 5, // 最大缩放 500%
-	},
+  width: 800,
+  height: 600,
+  showBg: true, // 显示背景网格
+  showRuler: true, // 显示标尺
+  readonly: false, // 非只读模式
 });
 
 // 调整尺寸
@@ -139,23 +134,15 @@ InternalRenderInstance extends RenderInstance
 
 ### RenderConfig
 
-| 属性        | 类型         | 默认值  | 说明             |
-| ----------- | ------------ | ------- | ---------------- |
-| `width`     | `number`     | -       | 画布宽度（必填） |
-| `height`    | `number`     | -       | 画布高度（必填） |
-| `showBg`    | `boolean`    | `false` | 是否显示背景网格 |
-| `showRuler` | `boolean`    | `false` | 是否显示标尺     |
-| `readonly`  | `boolean`    | `false` | 是否为只读模式   |
-| `zoom`      | `ZoomConfig` | -       | 缩放配置         |
+| 属性        | 类型      | 默认值  | 说明             |
+| ----------- | --------- | ------- | ---------------- |
+| `width`     | `number`  | -       | 画布宽度（必填） |
+| `height`    | `number`  | -       | 画布高度（必填） |
+| `showBg`    | `boolean` | `false` | 是否显示背景网格 |
+| `showRuler` | `boolean` | `false` | 是否显示标尺     |
+| `readonly`  | `boolean` | `false` | 是否为只读模式   |
 
-### ZoomConfig
-
-| 属性       | 类型      | 默认值 | 说明         |
-| ---------- | --------- | ------ | ------------ |
-| `enabled`  | `boolean` | `true` | 是否启用缩放 |
-| `scaleBy`  | `number`  | `0.1`  | 缩放速度     |
-| `scaleMin` | `number`  | `0.2`  | 最小缩放比例 |
-| `scaleMax` | `number`  | `5`    | 最大缩放比例 |
+> **注意**：缩放功能始终开启，默认配置为：缩放速度 0.1，最小缩放 0.2，最大缩放 5。
 
 ## 🎨 交互操作
 
