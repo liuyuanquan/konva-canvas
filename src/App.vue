@@ -97,13 +97,6 @@ const init = () => {
 					attractNode: true,
 					//
 					readonly,
-					//
-					zoom: {
-						enabled: true,
-						scaleBy: 0.1,
-						scaleMin: 0.2,
-						scaleMax: 5,
-					},
 				});
 			} else {
 				render.value.resize(width, height);

@@ -36,18 +36,23 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 
 	// 拖动前的位置
 	let transformerMousedownPos: Konva.Vector2d = { x: 0, y: 0 };
+	// 标记为已使用（将在后续功能中使用）
+	void transformerMousedownPos;
 
 	// 通过偏移量移动【目标节点】
-	const selectingNodesPositionByOffset = (offset: Konva.Vector2d) => {
-		for (const node of render.selectionTool.selectingNodes) {
-			if (node.attrs.nodeMousedownPos) {
-				const x = node.attrs.nodeMousedownPos.x + offset.x;
-				const y = node.attrs.nodeMousedownPos.y + offset.y;
-				node.x(x);
-				node.y(y);
-			}
-		}
+	const selectingNodesPositionByOffset = (_offset: Konva.Vector2d) => {
+		// TODO: 实现通过偏移量移动选中节点的逻辑
+		// for (const node of render.selectionTool.selectingNodes) {
+		// 	if (node.attrs.nodeMousedownPos) {
+		// 		const x = node.attrs.nodeMousedownPos.x + offset.x;
+		// 		const y = node.attrs.nodeMousedownPos.y + offset.y;
+		// 		node.x(x);
+		// 		node.y(y);
+		// 	}
+		// }
 	};
+	// 标记为已使用（将在后续功能中使用）
+	void selectingNodesPositionByOffset;
 
 	const reset = () => {
 		// 对齐线清除
@@ -106,7 +111,7 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 						// 单选
 						render.selectionTool.select([parent]);
 
-						// 单选时无法通过 transformer 获取拖动初始位置 transformerMousedownPos
+						// 单选时无法通过 transformer 获取拖动初始位置
 						// 此时直接取目标的 getClientRect 位置
 						const rect = parent.getClientRect();
 						transformerMousedownPos = { x: rect.x, y: rect.y };
@@ -322,6 +327,12 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 
 	const handleTransformerDragStart = () => {
 		// 拖动开始
+		// 记录拖动前的位置
+		const backElement = render.transformer.findOne(".back");
+		if (backElement) {
+			const rect = backElement.getClientRect();
+			transformerMousedownPos = { x: rect.x, y: rect.y };
+		}
 	};
 
 	const handleTransformerDragMove = () => {
