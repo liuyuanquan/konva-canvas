@@ -5,13 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.4] - 2025-01-XX
+## [1.0.4] - 2025-11-23
 
 ### ✨ Added
 
 #### 键盘移动功能
 
 - **键盘移动工具（KeyMove）**
+
   - 方向键移动选中的节点（上、下、左、右）
   - 速度递增机制（长按时速度逐渐增加，最大 20）
   - 速度重置（松开按键时重置速度为 1）
@@ -19,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Ctrl 键过滤（按 Ctrl 键时不处理移动）
 
 - **移动键常量（MoveKey）**
+
   - `MoveKey.上` - ArrowUp
   - `MoveKey.下` - ArrowDown
   - `MoveKey.左` - ArrowLeft
@@ -40,13 +42,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 在选中节点后，使用 `setTimeout` 确保 Transformer 准备好后再触发事件
   - 手动触发 Transformer 的 back rect 的 mousedown 事件，解决事件时序问题
 
-## [1.0.3] - 2025-01-XX
+## [1.0.3] - 2025-11-23
 
 ### ✨ Added
 
 #### 选择工具功能
 
 - **SelectionTool** - 完整的选择工具实现
+
   - 支持单选和多选
   - 支持 Ctrl/Meta 键多选
   - 选择框拖拽选择
@@ -55,6 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Hover 框显示（多选时）
 
 - **Transformer 事件处理**
+
   - `mousedown` - 点击处理（多选/取消选择）
   - `mousemove` - 鼠标移动（hover 框显示）
   - `mouseleave` - 鼠标离开（隐藏 hover 框）
