@@ -5,6 +5,7 @@ import {
 	enableReferenceLine,
 	enableDragOutside,
 	enableSelection,
+	enableKeyMove,
 } from "../interactions";
 
 /**
@@ -15,6 +16,11 @@ export function registerEvents(
 	config: RenderConfig,
 	cleanupFunctions: (() => void)[]
 ): void {
+	const container = render.stage.container();
+	// 设置容器焦点
+	container.tabIndex = 1;
+	container.focus();
+
 	// 启用右键拖拽功能
 	const cleanupDrag = enableDrag(render);
 	cleanupFunctions.push(cleanupDrag);
@@ -31,6 +37,10 @@ export function registerEvents(
 		// 启用多选器功能
 		const cleanupSelection = enableSelection(render);
 		cleanupFunctions.push(cleanupSelection);
+
+		// 启用键盘移动功能
+		const cleanupKeyMove = enableKeyMove(render);
+		cleanupFunctions.push(cleanupKeyMove);
 	}
 
 	// 启用参考线功能（监听鼠标移动）

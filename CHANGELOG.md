@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2025-01-XX
+
+### ✨ Added
+
+#### 键盘移动功能
+
+- **键盘移动工具（KeyMove）**
+  - 方向键移动选中的节点（上、下、左、右）
+  - 速度递增机制（长按时速度逐渐增加，最大 20）
+  - 速度重置（松开按键时重置速度为 1）
+  - 输入框过滤（在输入框中不处理键盘事件）
+  - Ctrl 键过滤（按 Ctrl 键时不处理移动）
+
+- **移动键常量（MoveKey）**
+  - `MoveKey.上` - ArrowUp
+  - `MoveKey.下` - ArrowDown
+  - `MoveKey.左` - ArrowLeft
+  - `MoveKey.右` - ArrowRight
+
+- **选择工具增强**
+  - `selectingNodesMove(offset)` - 通过偏移量移动选中的节点
+
+### 🐛 Bug Fixes
+
+- **修复第一次点击后直接拖动无响应问题**
+  - 问题：第一次点击选中节点后，如果按住不松直接拖动，没有反应
+  - 原因：Transformer 的 back rect 在 mousedown 事件处理过程中创建，错过了原始的 mousedown 事件
+  - 解决：在选中节点后，手动触发 Transformer 的 back rect 的 mousedown 事件，确保能够立即响应拖动
+
+### 🔧 Changed
+
+- **事件处理优化**
+  - 在选中节点后，使用 `setTimeout` 确保 Transformer 准备好后再触发事件
+  - 手动触发 Transformer 的 back rect 的 mousedown 事件，解决事件时序问题
+
 ## [1.0.3] - 2025-01-XX
 
 ### ✨ Added

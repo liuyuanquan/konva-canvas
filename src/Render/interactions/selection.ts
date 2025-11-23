@@ -115,6 +115,28 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 						// 此时直接取目标的 getClientRect 位置
 						const rect = parent.getClientRect();
 						transformerMousedownPos = { x: rect.x, y: rect.y };
+
+						// 关键修复：在选中节点后，需要让 transformer 能够立即响应拖动
+						// 由于 transformer 的节点是在 mousedown 中设置的，它的 back rect 还没有接收到 mousedown 事件
+						// 我们需要手动触发 transformer 的拖动准备
+						// 使用 setTimeout 确保在下一个事件循环中，transformer 已经准备好
+						// setTimeout(() => {
+						// 	const backElement = render.transformer.findOne(".back");
+						// 	if (backElement) {
+						// 		// 获取当前鼠标位置
+						// 		const pointerPos = render.stage.getPointerPosition();
+						// 		if (pointerPos) {
+						// 			// 更新 stage 的指针位置
+						// 			render.stage.setPointersPositions(e.evt);
+
+						// 			// 触发 transformer 的 mousedown 事件，让 transformer 能够开始拖动
+						// 			backElement.fire("mousedown", {
+						// 				evt: e.evt,
+						// 				target: backElement,
+						// 			});
+						// 		}
+						// 	}
+						// }, 0);
 					}
 				}
 			} else {

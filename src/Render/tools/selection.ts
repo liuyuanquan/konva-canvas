@@ -140,13 +140,13 @@ export function createSelection(render: InternalRenderInstance): SelectionTool {
 	}
 
 	// 更新节点位置
-	// function selectingNodesMove(offset: Konva.Vector2d) {
-	// 	for (const node of render.selectionTool.selectingNodes) {
-	// 		node.x(node.x() + offset.x);
-	// 		node.y(node.y() + offset.y);
-	// 	}
-	// 	// render.emit('asset-position-change', render.selectionTool.selectingNodes)
-	// }
+	function selectingNodesMove(offset: Konva.Vector2d) {
+		for (const node of render.selectionTool.selectingNodes) {
+			node.x(node.x() + offset.x);
+			node.y(node.y() + offset.y);
+		}
+		// render.emit('asset-position-change', render.selectionTool.selectingNodes)
+	}
 
 	// 选择所有节点
 	// function selectAll(): void {
@@ -161,7 +161,7 @@ export function createSelection(render: InternalRenderInstance): SelectionTool {
 		},
 		selectingClear,
 		select,
-		// selectingNodesMove,
+		selectingNodesMove,
 		// selectAll,
 	};
 }

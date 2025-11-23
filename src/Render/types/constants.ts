@@ -7,6 +7,16 @@ export const MouseButton = {
 } as const;
 
 /**
+ * 移动键常量（键盘按键代码）
+ */
+export const MoveKey = {
+	上: "ArrowUp",
+	下: "ArrowDown",
+	左: "ArrowLeft",
+	右: "ArrowRight",
+} as const;
+
+/**
  * 默认标尺大小（像素）
  */
 export const DEFAULT_RULER_SIZE = 40;

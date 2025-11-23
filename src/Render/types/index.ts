@@ -14,6 +14,7 @@ export type {
 // 常量
 export {
 	MouseButton,
+	MoveKey,
 	DEFAULT_RULER_SIZE,
 	DEFAULT_ZOOM_CONFIG,
 	DrawGroupName,
