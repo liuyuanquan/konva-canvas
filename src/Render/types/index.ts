@@ -15,6 +15,7 @@ export type {
 export {
 	MouseButton,
 	MoveKey,
+	ShortcutKey,
 	DEFAULT_RULER_SIZE,
 	DEFAULT_BG_SIZE,
 	DEFAULT_ZOOM_CONFIG,
@@ -23,7 +24,7 @@ export {
 export type { DrawGroupNameType } from "./constants";
 
 // 工具相关
-export type { SelectionTool } from "./tools";
+export type { SelectionTool, CopyTool } from "./tools";
 
 // 事件相关
 export type { EventHandlers } from "./events";

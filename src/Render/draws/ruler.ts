@@ -21,7 +21,7 @@ export function drawRuler(
 	options: RulerOptions = { size: 40 }
 ): void {
 	const layer = render.layers.cover;
-	const cellSize = 20;
+	const cellSize = render.bgSize;
 	const fontSizeMax = 12;
 
 	// 清除之前的标尺组

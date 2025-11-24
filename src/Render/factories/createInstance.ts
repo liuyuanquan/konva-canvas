@@ -171,9 +171,95 @@ export function createInstance(
 		 */
 		ignoreLink,
 
+		// ========== 历史记录 ==========
+		/**
+		 * 更新历史记录
+		 */
+		updateHistory() {
+			// TODO: 实现历史记录功能
+		},
+
+		/**
+		 * 撤销历史
+		 */
+		prevHistory() {
+			// TODO: 实现撤销功能
+		},
+
+		/**
+		 * 重做历史
+		 */
+		nextHistory() {
+			// TODO: 实现重做功能
+		},
+
+		// ========== 节点操作 ==========
+		/**
+		 * 删除节点
+		 * @param nodes - 要删除的节点列表
+		 */
+		remove(nodes: Konva.Node[]) {
+			for (const node of nodes) {
+				if (node instanceof Konva.Transformer) {
+					// 移除已选择的节点
+					this.remove(this.selectionTool.selectingNodes);
+				} else {
+					// 移除相关连接线信息
+					const groupId = node.id();
+
+					for (const rn of this.layers.main.getChildren()) {
+						if (rn.id() !== groupId && Array.isArray(rn.attrs.points)) {
+							for (const point of rn.attrs.points) {
+								if (Array.isArray(point.pairs)) {
+									// 移除拐点记录
+									if (rn.attrs.manualPointsMap) {
+										point.pairs
+											.filter(
+												(pair: any) =>
+													pair.from.groupId === groupId ||
+													pair.to.groupId === groupId
+											)
+											.forEach((pair: any) => {
+												rn.attrs.manualPointsMap[pair.id] = undefined;
+											});
+									}
+
+									// 连接线信息
+									point.pairs = point.pairs.filter(
+										(pair: any) =>
+											pair.from.groupId !== groupId &&
+											pair.to.groupId !== groupId
+									);
+								}
+							}
+
+							rn.setAttr("points", rn.attrs.points);
+						}
+					}
+
+					// 移除未选择的节点
+					node.destroy();
+				}
+			}
+
+			if (nodes.length > 0) {
+				// 清除选择
+				this.selectionTool.selectingClear();
+				// this.linkTool.selectingClear();
+				// TODO: 实现 linkTool
+
+				// 更新历史
+				this.updateHistory();
+
+				// 重绘
+				this.redraw();
+			}
+		},
+
 		// ========== 工具 ==========
 		// 占位，下面初始化
 		selectionTool: null as any,
+		copyTool: null as any,
 	};
 
 	// 注册绘制功能

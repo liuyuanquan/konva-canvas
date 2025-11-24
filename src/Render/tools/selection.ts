@@ -155,11 +155,13 @@ export function createSelection(render: InternalRenderInstance): SelectionTool {
 		// render.emit('asset-position-change', render.selectionTool.selectingNodes)
 	}
 
-	// 选择所有节点
-	// function selectAll(): void {
-	// 	const nodes = render.layers.main.find(".asset") as Konva.Node[];
-	// 	select(nodes);
-	// }
+	/**
+	 * 全选所有节点
+	 */
+	function selectAll(): void {
+		const nodes = render.layers.main.find(".asset") as Konva.Node[];
+		select(nodes);
+	}
 
 	// 返回选择工具接口
 	return {
@@ -169,6 +171,6 @@ export function createSelection(render: InternalRenderInstance): SelectionTool {
 		selectingClear,
 		select,
 		selectingNodesMove,
-		// selectAll,
+		selectAll,
 	};
 }

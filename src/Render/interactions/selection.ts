@@ -1,6 +1,6 @@
 import Konva from "konva";
 import type { InternalRenderInstance, EventHandlers } from "../types";
-import { MouseButton } from "../types";
+import { MouseButton, DrawGroupName } from "../types";
 
 /**
  * 选择框状态
@@ -100,6 +100,38 @@ export function getSelectionHandlers(
 	let transformerMousedownPos: Konva.Vector2d = { x: 0, y: 0 };
 	// 标记为已使用（将在后续功能中使用）
 	void transformerMousedownPos;
+
+	// 上一次的旋转角度
+	let lastRotation = 0;
+
+	/**
+	 * 旋转点（绕中心点旋转）
+	 * @param x - 点的 x 坐标
+	 * @param y - 点的 y 坐标
+	 * @param centerX - 旋转中心 x 坐标
+	 * @param centerY - 旋转中心 y 坐标
+	 * @param rotation - 旋转角度（度）
+	 * @returns 旋转后的坐标
+	 */
+	const rotatePoint = (
+		x: number,
+		y: number,
+		centerX: number,
+		centerY: number,
+		rotation: number
+	): { x: number; y: number } => {
+		const rad = (rotation * Math.PI) / 180;
+		const cos = Math.cos(rad);
+		const sin = Math.sin(rad);
+		const dx = x - centerX;
+		const dy = y - centerY;
+		return {
+			x: centerX + dx * cos - dy * sin,
+			y: centerY + dx * sin + dy * cos,
+		};
+	};
+	// 标记为已使用（将在后续功能中使用）
+	void rotatePoint;
 
 	// 通过偏移量移动【目标节点】
 	const selectingNodesPositionByOffset = (_offset: Konva.Vector2d) => {
@@ -419,31 +451,13 @@ export function getSelectionHandlers(
 		}
 	};
 
-	const handleTransformerDragStart = (e: Konva.KonvaEventObject<DragEvent>) => {
-		e.evt.preventDefault();
-		// 拖动开始
-		// 记录拖动前的位置
-		// const backElement = render.transformer.findOne(".back");
-		// if (backElement) {
-		// 	const rect = backElement.getClientRect();
-		// 	transformerMousedownPos = { x: rect.x, y: rect.y };
-		// }
+	const handleTransformerDragStart = () => {
+		//
 	};
 
-	const handleTransformerDragMove = (e: Konva.KonvaEventObject<DragEvent>) => {
-		e.evt.preventDefault();
-		// 拖动中
-		// const backElement = render.transformer.findOne(".back");
-		// if (!backElement) return;
-	};
+	const handleTransformerDragMove = () => {
+		// todo
 
-	const handleTransformerDragEnd = (e: Konva.KonvaEventObject<DragEvent>) => {
-		e.evt.preventDefault();
-		// 重置状态
-		// reset();
-		// 更新历史
-		// render.updateHistory();
-		// TODO: 实现历史记录功能
 		// 重绘
 		// render.redraw([
 		// 	DrawGroupName.GRAPH,
@@ -452,27 +466,15 @@ export function getSelectionHandlers(
 		// 	DrawGroupName.PREVIEW,
 		// ]);
 		// TODO: 实现 GraphDraw、LinkDraw、PreviewDraw，或使用对应的 DrawGroupName
-		// render.redraw([DrawGroupName.RULER]);
+		render.redraw([DrawGroupName.RULER]);
 	};
 
-	const handleTransformerTransformStart = () => {
-		// 变换开始（缩放、旋转等）
-		// TODO: 实现变换开始时的逻辑
-	};
-
-	const handleTransformerTransform = () => {
-		// 变换中（缩放、旋转等）
-		// TODO: 实现变换中的逻辑
-	};
-
-	const handleTransformerTransformEnd = () => {
-		// 变换结束（缩放、旋转等）
+	const handleTransformerDragEnd = () => {
 		// 重置状态
 		reset();
 
 		// 更新历史
-		// render.updateHistory();
-		// TODO: 实现历史记录功能
+		render.updateHistory();
 
 		// 重绘
 		// render.redraw([
@@ -482,7 +484,53 @@ export function getSelectionHandlers(
 		// 	DrawGroupName.PREVIEW,
 		// ]);
 		// TODO: 实现 GraphDraw、LinkDraw、PreviewDraw，或使用对应的 DrawGroupName
-		// render.redraw([DrawGroupName.RULER]);
+		render.redraw([DrawGroupName.RULER]);
+	};
+
+	const handleTransformerTransformStart = () => {
+		// 变换开始（缩放、旋转等）
+		const transformer = render.transformer;
+		const back = transformer.findOne(".back");
+
+		if (back) {
+			lastRotation = back.getAbsoluteRotation();
+		}
+	};
+
+	const handleTransformerTransform = () => {
+		// 变换中（缩放、旋转等）
+		const transformer = render.transformer;
+		const back = transformer.findOne(".back");
+
+		if (back) {
+			// stage 状态
+		}
+
+		// 重绘
+		// render.redraw([
+		// 	DrawGroupName.GRAPH,
+		// 	DrawGroupName.LINK,
+		// 	DrawGroupName.PREVIEW,
+		// ]);
+		// TODO: 实现 GraphDraw、LinkDraw、PreviewDraw，或使用对应的 DrawGroupName
+	};
+
+	const handleTransformerTransformEnd = () => {
+		// 重置状态
+		reset();
+
+		// 更新历史
+		render.updateHistory();
+
+		// 重绘
+		// render.redraw([
+		// 	DrawGroupName.GRAPH,
+		// 	DrawGroupName.LINK,
+		// 	DrawGroupName.RULER,
+		// 	DrawGroupName.PREVIEW,
+		// ]);
+		// TODO: 实现 GraphDraw、LinkDraw、PreviewDraw，或使用对应的 DrawGroupName
+		render.redraw([DrawGroupName.RULER]);
 	};
 
 	// 返回事件处理器映射

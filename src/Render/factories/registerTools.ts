@@ -1,5 +1,5 @@
 import type { InternalRenderInstance, RenderConfig } from "../types";
-import { createSelection } from "../tools";
+import { createSelection, createCopy } from "../tools";
 
 /**
  * 注册所有工具
@@ -13,4 +13,7 @@ export function registerTools(
 ): void {
 	// 选择工具
 	render.selectionTool = createSelection(render);
+
+	// 复制工具
+	render.copyTool = createCopy(render);
 }

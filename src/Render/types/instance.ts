@@ -1,6 +1,6 @@
 import Konva from "konva";
 import type { RenderConfig } from "./config";
-import type { SelectionTool } from "../types";
+import type { SelectionTool, CopyTool } from "../types";
 
 /**
  * Stage 状态
@@ -76,6 +76,17 @@ export interface InternalRenderInstance extends RenderInstance, CoreSetup {
 
 	/** 工具 */
 	selectionTool: SelectionTool;
+	copyTool: CopyTool;
+
+	/** 历史记录 */
+	updateHistory: () => void;
+	/** 撤销历史 */
+	prevHistory: () => void;
+	/** 重做历史 */
+	nextHistory: () => void;
+
+	/** 删除节点 */
+	remove: (nodes: Konva.Node[]) => void;
 }
 
 /**

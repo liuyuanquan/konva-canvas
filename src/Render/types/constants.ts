@@ -17,6 +17,20 @@ export const MoveKey = {
 } as const;
 
 /**
+ * 快捷键常量（键盘按键代码）
+ */
+export const ShortcutKey = {
+	C: "KeyC",
+	V: "KeyV",
+	Z: "KeyZ",
+	A: "KeyA",
+	R: "KeyR",
+	删除: "Delete",
+	Backspace: "Backspace",
+	Esc: "Escape",
+} as const;
+
+/**
  * 默认标尺大小（像素）
  */
 export const DEFAULT_RULER_SIZE = 40;
@@ -24,7 +38,7 @@ export const DEFAULT_RULER_SIZE = 40;
 /**
  * 默认背景网格大小（像素）
  */
-export const DEFAULT_BG_SIZE = 20;
+export const DEFAULT_BG_SIZE = 40;
 
 /**
  * 默认缩放配置
@@ -50,6 +64,8 @@ export const DrawGroupName = {
 	SCALE_INFO: "scaleInfo",
 	/** 坐标参考线 */
 	REFERENCE_LINE: "referenceLine",
+	/** 右键菜单 */
+	CONTEXT_MENU: "contextMenu",
 } as const;
 
 /**

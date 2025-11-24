@@ -6,6 +6,7 @@ import {
 	getDragOutsideHandlers,
 	getSelectionHandlers,
 	getKeyMoveHandlers,
+	getShortcutHandlers,
 	enableAttractResize,
 } from "../interactions";
 import { getReferenceLineHandlers } from "../draws/referenceLine";
@@ -126,6 +127,7 @@ export function registerEvents(
 		mergeHandlers(getDragOutsideHandlers(render));
 		mergeHandlers(getSelectionHandlers(render));
 		mergeHandlers(getKeyMoveHandlers(render));
+		mergeHandlers(getShortcutHandlers(render));
 
 		// 启用可选功能
 		if (config.attractResize) {

@@ -30,6 +30,7 @@
 		"element-plus": "^2.11.8",
 		"konva": "9.3.14",
 		"lodash-es": "^4.17.21",
+		"nanoid": "^5.1.6",
 		"tailwindcss": "^4.1.17",
 		"vue": "^3.5.24"
 	},
