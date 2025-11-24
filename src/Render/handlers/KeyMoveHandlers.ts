@@ -5,8 +5,6 @@ import * as Draws from "../draws";
 import { BaseHandler } from "./BaseHandler";
 
 export class KeyMoveHandlers extends BaseHandler {
-	static readonly name = "KeyMove";
-
 	speed = 1;
 	speedMax = 20;
 
@@ -63,3 +61,8 @@ export class KeyMoveHandlers extends BaseHandler {
 		},
 	};
 }
+Object.defineProperty(KeyMoveHandlers, "name", {
+	value: "KeyMove",
+	writable: false,
+	configurable: false,
+});

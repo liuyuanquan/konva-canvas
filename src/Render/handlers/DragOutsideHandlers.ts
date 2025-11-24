@@ -8,8 +8,6 @@ import * as Draws from "../draws";
 import { BaseHandler } from "./BaseHandler";
 
 export class DragOutsideHandlers extends BaseHandler {
-	static readonly name = "DragOutside";
-
 	handlers = {
 		dom: {
 			dragenter: (e: GlobalEventHandlersEventMap["dragenter"]) => {
@@ -218,3 +216,8 @@ export class DragOutsideHandlers extends BaseHandler {
 		},
 	};
 }
+Object.defineProperty(DragOutsideHandlers, "name", {
+	value: "DragOutside",
+	writable: false,
+	configurable: false,
+});

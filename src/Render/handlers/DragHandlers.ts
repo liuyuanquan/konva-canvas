@@ -6,8 +6,6 @@ import * as Draws from "../draws";
 import { BaseHandler } from "./BaseHandler";
 
 export class DragHandlers extends BaseHandler {
-	static readonly name = "Drag";
-
 	// 右键是否按下
 	mousedownRight = false;
 	// 右键按下 stage 位置
@@ -77,3 +75,8 @@ export class DragHandlers extends BaseHandler {
 		},
 	};
 }
+Object.defineProperty(DragHandlers, "name", {
+	value: "Drag",
+	writable: false,
+	configurable: false,
+});

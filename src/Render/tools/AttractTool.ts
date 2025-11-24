@@ -14,8 +14,6 @@ interface AlignRect {
 type SortItemPair = [Types.SortItem, Types.SortItem];
 
 export class AttractTool extends BaseTool {
-	static readonly name = "AttractTool";
-
 	// 对齐线
 	alignLines: Konva.Line[] = [];
 
@@ -686,3 +684,8 @@ export class AttractTool extends BaseTool {
 		};
 	};
 }
+Object.defineProperty(AttractTool, "name", {
+	value: "AttractTool",
+	writable: false,
+	configurable: false,
+});

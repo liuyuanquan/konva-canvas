@@ -4,8 +4,6 @@ import * as Types from "../types";
 import { BaseTool } from "./BaseTool";
 
 export class SelectionTool extends BaseTool {
-	static readonly name = "SelectionTool";
-
 	// 【被选中的】
 	selectingNodes: Konva.Node[] = [];
 
@@ -69,7 +67,7 @@ export class SelectionTool extends BaseTool {
 			if (nodes.length === 1) {
 				const target = nodes[0];
 				if (!target) return;
-				
+
 				// 图形 不能改变大小
 				this.render.transformer.resizeEnabled(
 					target.attrs.assetType === Types.AssetType.Graph ? false : true
@@ -156,3 +154,8 @@ export class SelectionTool extends BaseTool {
 		this.select(nodes);
 	}
 }
+Object.defineProperty(SelectionTool, "name", {
+	value: "SelectionTool",
+	writable: false,
+	configurable: false,
+});

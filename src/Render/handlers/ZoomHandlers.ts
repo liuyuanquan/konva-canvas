@@ -4,8 +4,6 @@ import * as Draws from "../draws";
 import { BaseHandler } from "./BaseHandler";
 
 export class ZoomHandlers extends BaseHandler {
-	static readonly name = "Zoom";
-
 	// zoom 速度
 	scaleBy = 0.1;
 	// zoom 范围
@@ -63,3 +61,8 @@ export class ZoomHandlers extends BaseHandler {
 		},
 	};
 }
+Object.defineProperty(ZoomHandlers, "name", {
+	value: "Zoom",
+	writable: false,
+	configurable: false,
+});
