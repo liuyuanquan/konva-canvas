@@ -4,11 +4,11 @@ import { DrawGroupName } from "../types";
 import { loadAsset, playGif } from "../utils";
 
 /**
- * 启用外部拖拽放置功能（从素材面板拖拽到画布）
+ * 获取外部拖拽放置的事件处理器（从素材面板拖拽到画布）
  * @param render - 内部渲染实例
  * @returns 事件处理器映射
  */
-export function enableDragOutside(
+export function getDragOutsideHandlers(
 	render: InternalRenderInstance
 ): EventHandlers {
 	// 处理拖拽进入

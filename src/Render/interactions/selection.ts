@@ -80,11 +80,13 @@ export function enableAttractResize(
 }
 
 /**
- * 启用选择框功能
+ * 获取选择框的事件处理器
  * @param render - 内部渲染实例
  * @returns 事件处理器映射
  */
-export function enableSelection(render: InternalRenderInstance): EventHandlers {
+export function getSelectionHandlers(
+	render: InternalRenderInstance
+): EventHandlers {
 	// 选择框状态
 	const state: SelectionState = {
 		selecting: false,

@@ -3,11 +3,11 @@ import type { InternalRenderInstance, EventHandlers } from "../types";
 import { DEFAULT_ZOOM_CONFIG } from "../types";
 
 /**
- * 启用滚轮缩放功能（使用默认配置）
+ * 获取滚轮缩放的事件处理器
  * @param render - 内部渲染实例
  * @returns 事件处理器映射
  */
-export function enableZoom(render: InternalRenderInstance): EventHandlers {
+export function getZoomHandlers(render: InternalRenderInstance): EventHandlers {
 	const { scaleBy, scaleMin, scaleMax } = DEFAULT_ZOOM_CONFIG;
 
 	const stage = render.stage;

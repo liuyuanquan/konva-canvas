@@ -1,14 +1,14 @@
 import Konva from "konva";
 import type { InternalRenderInstance, RenderConfig } from "../types";
 import {
-	enableDrag,
-	enableZoom,
-	enableReferenceLine,
-	enableDragOutside,
-	enableSelection,
-	enableKeyMove,
+	getDragHandlers,
+	getZoomHandlers,
+	getDragOutsideHandlers,
+	getSelectionHandlers,
+	getKeyMoveHandlers,
 	enableAttractResize,
 } from "../interactions";
+import { getReferenceLineHandlers } from "../draws/referenceLine";
 
 /**
  * 注册所有事件处理（拖拽、缩放等）
@@ -117,15 +117,15 @@ export function registerEvents(
 	containerEventHandlers.set("mouseenter", new Set([handleFocus]));
 	containerEventHandlers.set("dragenter", new Set([handleFocus]));
 
-	// 启用基础功能（始终启用）
-	mergeHandlers(enableDrag(render));
-	mergeHandlers(enableZoom(render));
+	// 注册基础功能（始终启用）
+	mergeHandlers(getDragHandlers(render));
+	mergeHandlers(getZoomHandlers(render));
 
 	if (!config.readonly) {
-		// 启用只读模式下禁用的功能
-		mergeHandlers(enableDragOutside(render));
-		mergeHandlers(enableSelection(render));
-		mergeHandlers(enableKeyMove(render));
+		// 注册只读模式下禁用的功能
+		mergeHandlers(getDragOutsideHandlers(render));
+		mergeHandlers(getSelectionHandlers(render));
+		mergeHandlers(getKeyMoveHandlers(render));
 
 		// 启用可选功能
 		if (config.attractResize) {
@@ -134,7 +134,7 @@ export function registerEvents(
 		}
 
 		if (config.showRefLine) {
-			mergeHandlers(enableReferenceLine(render));
+			mergeHandlers(getReferenceLineHandlers(render));
 		}
 	}
 

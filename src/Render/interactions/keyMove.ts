@@ -2,11 +2,13 @@ import type { InternalRenderInstance, EventHandlers } from "../types";
 import { MoveKey, DrawGroupName } from "../types";
 
 /**
- * 启用键盘移动功能
+ * 获取键盘移动的事件处理器
  * @param render - 内部渲染实例
  * @returns 事件处理器映射
  */
-export function enableKeyMove(render: InternalRenderInstance): EventHandlers {
+export function getKeyMoveHandlers(
+	render: InternalRenderInstance
+): EventHandlers {
 	let speed = 1;
 	const speedMax = 20;
 

@@ -3,11 +3,11 @@ import type { InternalRenderInstance, EventHandlers } from "../types";
 import { MouseButton } from "../types";
 
 /**
- * 启用右键拖拽画布功能
+ * 获取拖拽画布的事件处理器
  * @param render - 内部渲染实例
  * @returns 事件处理器映射
  */
-export function enableDrag(render: InternalRenderInstance): EventHandlers {
+export function getDragHandlers(render: InternalRenderInstance): EventHandlers {
 	const stage = render.stage;
 
 	let mousedownRight = false;
