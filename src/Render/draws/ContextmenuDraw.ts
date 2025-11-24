@@ -8,8 +8,6 @@ export interface ContextmenuDrawOption {
 }
 
 export class ContextmenuDraw extends BaseDraw implements Types.Draw {
-	static override readonly name = "contextmenu";
-
 	option: ContextmenuDrawOption;
 
 	state: {
@@ -379,3 +377,8 @@ export class ContextmenuDraw extends BaseDraw implements Types.Draw {
 		},
 	};
 }
+Object.defineProperty(ContextmenuDraw, "name", {
+	value: "contextmenu",
+	writable: false,
+	configurable: false,
+});

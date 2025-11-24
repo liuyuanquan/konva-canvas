@@ -9,8 +9,6 @@ export interface RulerDrawOption {
 }
 
 export class RulerDraw extends BaseDraw implements Types.Draw {
-	static override readonly name = "ruler";
-
 	option: RulerDrawOption;
 
 	constructor(
@@ -213,3 +211,8 @@ export class RulerDraw extends BaseDraw implements Types.Draw {
 		this.group.add(group);
 	}
 }
+Object.defineProperty(RulerDraw, "name", {
+	value: "ruler",
+	writable: false,
+	configurable: false,
+});

@@ -7,8 +7,6 @@ export interface ScaleInfoDrawOption {
 }
 
 export class ScaleInfoDraw extends BaseDraw implements Types.Draw {
-	static override readonly name = "scaleInfo";
-
 	option: ScaleInfoDrawOption;
 
 	constructor(
@@ -59,3 +57,8 @@ export class ScaleInfoDraw extends BaseDraw implements Types.Draw {
 		this.group.add(text);
 	}
 }
+Object.defineProperty(ScaleInfoDraw, "name", {
+	value: "scaleInfo",
+	writable: false,
+	configurable: false,
+});

@@ -9,8 +9,6 @@ export interface RefLineDrawOption {
 }
 
 export class RefLineDraw extends BaseDraw implements Types.Draw, Types.Handler {
-	static override readonly name = "refLine";
-
 	option: RefLineDrawOption;
 
 	constructor(
@@ -99,3 +97,8 @@ export class RefLineDraw extends BaseDraw implements Types.Draw, Types.Handler {
 		},
 	};
 }
+Object.defineProperty(RefLineDraw, "name", {
+	value: "refLine",
+	writable: false,
+	configurable: false,
+});

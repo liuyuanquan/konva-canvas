@@ -5,8 +5,6 @@ import * as Types from "../types";
 import { BaseDraw } from "./BaseDraw";
 
 export class AttractDraw extends BaseDraw implements Types.Draw {
-	static override readonly name = "Attract";
-
 	option: {};
 
 	on = {};
@@ -88,3 +86,8 @@ export class AttractDraw extends BaseDraw implements Types.Draw {
 		}
 	}
 }
+Object.defineProperty(AttractDraw, "name", {
+	value: "Attract",
+	writable: false,
+	configurable: false,
+});

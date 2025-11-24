@@ -8,8 +8,6 @@ export interface BgDrawOption {
 	size: number;
 }
 export class BgDraw extends BaseDraw implements Types.Draw {
-	static override readonly name = "bg";
-
 	option: BgDrawOption;
 
 	constructor(render: Types.Render, layer: Konva.Layer, option: BgDrawOption) {
@@ -122,3 +120,8 @@ export class BgDraw extends BaseDraw implements Types.Draw {
 		this.group.add(group);
 	}
 }
+Object.defineProperty(BgDraw, "name", {
+	value: "bg",
+	writable: false,
+	configurable: false,
+});
