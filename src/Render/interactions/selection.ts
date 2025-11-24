@@ -20,6 +20,8 @@ interface SelectionState {
 
 /**
  * 启用选择框功能
+ * @param render - 内部渲染实例
+ * @returns 清理函数
  */
 export function enableSelection(render: InternalRenderInstance): () => void {
 	const stage = render.stage;
@@ -63,6 +65,7 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 
 	// 鼠标按下
 	const handleMouseDown = (e: Konva.KonvaEventObject<MouseEvent>) => {
+		e.evt.preventDefault();
 		const parent = e.target.getParent();
 
 		if (e.target === render.stage) {
@@ -146,7 +149,8 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 	};
 
 	// 鼠标移动
-	const handleMouseMove = () => {
+	const handleMouseMove = (e: Konva.KonvaEventObject<MouseEvent>) => {
+		e.evt.preventDefault();
 		// stage 状态
 		const stageState = render.getStageState();
 
@@ -177,7 +181,8 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 	};
 
 	// 鼠标松开
-	const handleMouseUp = () => {
+	const handleMouseUp = (e: Konva.KonvaEventObject<MouseEvent>) => {
+		e.evt.preventDefault();
 		// 选择框
 
 		// 重叠计算
@@ -216,6 +221,7 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 	const handleTransformerMouseDown = (
 		e: Konva.KonvaEventObject<MouseEvent>
 	) => {
+		e.evt.preventDefault();
 		const anchor = render.transformer.getActiveAnchor();
 
 		if (!anchor) {
@@ -300,7 +306,10 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 		}
 	};
 
-	const handleTransformerMouseMove = () => {
+	const handleTransformerMouseMove = (
+		e: Konva.KonvaEventObject<MouseEvent>
+	) => {
+		e.evt.preventDefault();
 		const pos = render.stage.getPointerPosition();
 
 		if (pos) {
@@ -338,7 +347,10 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 		}
 	};
 
-	const handleTransformerMouseLeave = () => {
+	const handleTransformerMouseLeave = (
+		e: Konva.KonvaEventObject<MouseEvent>
+	) => {
+		e.evt.preventDefault();
 		// 隐藏 hover 框
 		for (const shape of render.transformer.nodes()) {
 			if (shape instanceof Konva.Group) {
@@ -347,30 +359,31 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 		}
 	};
 
-	const handleTransformerDragStart = () => {
+	const handleTransformerDragStart = (e: Konva.KonvaEventObject<DragEvent>) => {
+		e.evt.preventDefault();
 		// 拖动开始
 		// 记录拖动前的位置
-		const backElement = render.transformer.findOne(".back");
-		if (backElement) {
-			const rect = backElement.getClientRect();
-			transformerMousedownPos = { x: rect.x, y: rect.y };
-		}
+		// const backElement = render.transformer.findOne(".back");
+		// if (backElement) {
+		// 	const rect = backElement.getClientRect();
+		// 	transformerMousedownPos = { x: rect.x, y: rect.y };
+		// }
 	};
 
-	const handleTransformerDragMove = () => {
+	const handleTransformerDragMove = (e: Konva.KonvaEventObject<DragEvent>) => {
+		e.evt.preventDefault();
 		// 拖动中
-		const backElement = render.transformer.findOne(".back");
-		if (!backElement) return;
+		// const backElement = render.transformer.findOne(".back");
+		// if (!backElement) return;
 	};
 
-	const handleTransformerDragEnd = () => {
+	const handleTransformerDragEnd = (e: Konva.KonvaEventObject<DragEvent>) => {
+		e.evt.preventDefault();
 		// 重置状态
-		reset();
-
+		// reset();
 		// 更新历史
 		// render.updateHistory();
 		// TODO: 实现历史记录功能
-
 		// 重绘
 		// render.redraw([
 		// 	DrawGroupName.GRAPH,
@@ -379,7 +392,7 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 		// 	DrawGroupName.PREVIEW,
 		// ]);
 		// TODO: 实现 GraphDraw、LinkDraw、PreviewDraw，或使用对应的 DrawGroupName
-		render.redraw([DrawGroupName.RULER]);
+		// render.redraw([DrawGroupName.RULER]);
 	};
 
 	const handleTransformerTransformStart = () => {

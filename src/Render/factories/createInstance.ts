@@ -13,6 +13,9 @@ import { ignore, ignoreSelect, ignoreDraw, ignoreLink } from "../utils";
 
 /**
  * 创建 InternalRenderInstance 对象
+ * @param core - 核心设置（Stage、Layers 等）
+ * @param config - 渲染器配置
+ * @returns 内部渲染实例
  */
 export function createInstance(
 	core: CoreSetup,
@@ -49,6 +52,8 @@ export function createInstance(
 		// ========== 画布操作 ==========
 		/**
 		 * 调整画布尺寸
+		 * @param width - 画布宽度
+		 * @param height - 画布高度
 		 */
 		resize(width: number, height: number) {
 			stage.setAttrs({ width, height });
@@ -57,6 +62,7 @@ export function createInstance(
 
 		/**
 		 * 重绘画布（可选择性重绘指定部分）
+		 * @param drawNames - 需要重绘的绘制组名称数组，不传则重绘全部
 		 */
 		redraw(drawNames?: string[]) {
 			const allDrawNames = Array.from(drawFunctions.keys());
@@ -100,6 +106,7 @@ export function createInstance(
 		// ========== 状态获取 ==========
 		/**
 		 * 获取 Stage 状态
+		 * @returns Stage 状态信息
 		 */
 		getStageState(): StageState {
 			return {
@@ -114,6 +121,8 @@ export function createInstance(
 		// ========== 坐标转换 ==========
 		/**
 		 * 相对大小（基于 stage，且无视 scale）
+		 * @param boardPos - 画板坐标值
+		 * @returns Stage 坐标值
 		 */
 		toStageValue(boardPos: number): number {
 			return boardPos / stage.scaleX();
@@ -121,6 +130,8 @@ export function createInstance(
 
 		/**
 		 * 绝对大小（基于可视区域像素）
+		 * @param stagePos - Stage 坐标值
+		 * @returns 画板坐标值
 		 */
 		toBoardValue(stagePos: number): number {
 			return stagePos * stage.scaleX();
@@ -129,6 +140,7 @@ export function createInstance(
 		// ========== 元素操作 ==========
 		/**
 		 * 切换 main 层所有节点的可拖拽状态
+		 * @param draggable - 是否可拖拽
 		 */
 		changeDraggable(draggable: boolean) {
 			layers.main.getChildren().forEach((node) => {

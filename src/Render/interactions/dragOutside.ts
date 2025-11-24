@@ -5,6 +5,8 @@ import { loadAsset, playGif } from "../utils";
 
 /**
  * 启用外部拖拽放置功能（从素材面板拖拽到画布）
+ * @param render - 内部渲染实例
+ * @returns 清理函数
  */
 export function enableDragOutside(render: InternalRenderInstance): () => void {
 	const container = render.stage.container();

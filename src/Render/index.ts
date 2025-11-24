@@ -3,6 +3,9 @@ import { createCore, createInstance } from "./factories";
 
 /**
  * 创建渲染器实例
+ * @param container - 画布容器元素
+ * @param config - 渲染器配置
+ * @returns 渲染器实例
  */
 export function createRender(
 	container: HTMLDivElement,
@@ -18,5 +21,7 @@ export function createRender(
 	return instance as RenderInstance;
 }
 
-// 导出类型
+/**
+ * 导出类型
+ */
 export type { RenderInstance, RenderConfig } from "./types";

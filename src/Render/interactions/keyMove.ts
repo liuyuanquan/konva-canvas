@@ -3,6 +3,8 @@ import { MoveKey, DrawGroupName } from "../types";
 
 /**
  * 启用键盘移动功能
+ * @param render - 内部渲染实例
+ * @returns 清理函数
  */
 export function enableKeyMove(render: InternalRenderInstance): () => void {
 	const container = render.stage.container();
@@ -50,7 +52,8 @@ export function enableKeyMove(render: InternalRenderInstance): () => void {
 		}
 	};
 
-	const handleKeyUp = () => {
+	const handleKeyUp = (e: KeyboardEvent) => {
+		e.preventDefault();
 		// 重置速度
 		speed = 1;
 	};

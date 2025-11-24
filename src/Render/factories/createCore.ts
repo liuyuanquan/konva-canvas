@@ -4,6 +4,9 @@ import { DEFAULT_RULER_SIZE } from "../types";
 
 /**
  * 创建 Konva Stage 和 Layers
+ * @param container - 画布容器元素
+ * @param config - 渲染器配置
+ * @returns 核心设置对象
  */
 export function createCore(
 	container: HTMLDivElement,

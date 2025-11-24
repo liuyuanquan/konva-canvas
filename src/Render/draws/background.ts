@@ -3,12 +3,18 @@ import flatten from "lodash-es/flatten";
 import type { InternalRenderInstance } from "../types";
 import { DrawGroupName } from "../types";
 
+/**
+ * 背景选项
+ */
 export interface BgOptions {
+	/** 网格大小 */
 	size: number;
 }
 
 /**
  * 绘制背景网格
+ * @param render - 内部渲染实例
+ * @param options - 背景选项
  */
 export function drawBg(
 	render: InternalRenderInstance,

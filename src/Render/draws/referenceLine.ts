@@ -9,6 +9,8 @@ export interface ReferenceLineOptions {
 
 /**
  * 绘制坐标参考线（跟随鼠标的横竖十字线）
+ * @param render - 内部渲染实例
+ * @param options - 参考线选项
  */
 export function drawReferenceLine(
 	render: InternalRenderInstance,

@@ -41,25 +41,25 @@ export interface CoreSetup {
  * 渲染实例接口（对外 API）
  */
 export interface RenderInstance {
-	// 配置信息（只读）
+	/** 配置信息（只读） */
 	readonly config: RenderConfig;
 
-	// 画布操作
+	/** 画布操作 */
 	resize: (width: number, height: number) => void;
 	redraw: (drawNames?: string[]) => void;
 	destroy: () => void;
 
-	// 状态获取
+	/** 状态获取 */
 	getStageState: () => StageState;
 
-	// 坐标转换
+	/** 坐标转换 */
 	toStageValue: (boardPos: number) => number;
 	toBoardValue: (stagePos: number) => number;
 
-	// 元素操作
+	/** 元素操作 */
 	changeDraggable: (draggable: boolean) => void;
 
-	// 元素过滤（忽略特定类型的节点）
+	/** 元素过滤（忽略特定类型的节点） */
 	ignore: (node: Konva.Node) => boolean;
 	ignoreSelect: (node: Konva.Node) => boolean;
 	ignoreDraw: (node: Konva.Node) => boolean;
@@ -70,18 +70,18 @@ export interface RenderInstance {
  * 内部实例接口（包含所有属性和方法）
  */
 export interface InternalRenderInstance extends RenderInstance {
-	// 内部属性
+	/** 内部属性 */
 	stage: Konva.Stage;
 	layers: RenderLayers;
 	rulerSize: number;
 	drawGroups: Map<string, Konva.Group>;
 
-	// 选择相关
+	/** 选择相关 */
 	groupTransformer: Konva.Group;
 	transformer: Konva.Transformer;
 	selectRect: Konva.Rect;
 
-	// 工具
+	/** 工具 */
 	selectionTool: SelectionTool;
 }
 

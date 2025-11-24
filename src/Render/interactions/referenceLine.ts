@@ -3,17 +3,21 @@ import { DrawGroupName } from "../types";
 
 /**
  * 启用参考线功能（监听鼠标移动）
+ * @param render - 内部渲染实例
+ * @returns 清理函数
  */
 export function enableReferenceLine(
 	render: InternalRenderInstance
 ): () => void {
 	const container = render.stage.container();
 
-	const handleMouseMove = () => {
+	const handleMouseMove = (e: MouseEvent) => {
+		e.preventDefault();
 		render.redraw([DrawGroupName.REFERENCE_LINE]);
 	};
 
-	const handleMouseOut = () => {
+	const handleMouseOut = (e: MouseEvent) => {
+		e.preventDefault();
 		// 鼠标移出时，清除参考线
 		const group = render.drawGroups.get(DrawGroupName.REFERENCE_LINE);
 		if (group) {
@@ -27,7 +31,7 @@ export function enableReferenceLine(
 
 	// 返回清理函数
 	return () => {
-		render.stage.off("mousemove", handleMouseMove);
-		render.stage.off("mouseout", handleMouseOut);
+		container.removeEventListener("mousemove", handleMouseMove);
+		container.removeEventListener("mouseout", handleMouseOut);
 	};
 }

@@ -4,7 +4,7 @@ const gifler = window.gifler;
 
 /**
  * 加载 SVG 并创建 Konva.Image
- * @param src SVG 文件路径
+ * @param src - SVG 文件路径
  * @returns Promise<Konva.Image>
  */
 export async function loadSvg(src: string): Promise<Konva.Image> {
@@ -25,8 +25,8 @@ export async function loadSvg(src: string): Promise<Konva.Image> {
 
 /**
  * 加载 GIF 并创建 Konva.Image（支持动画）
- * @param src GIF 文件路径
- * @param onFrame 每帧回调函数（可选）
+ * @param src - GIF 文件路径
+ * @param onFrame - 每帧回调函数（可选）
  * @returns Promise<Konva.Image>
  */
 export function loadGif(
@@ -82,7 +82,7 @@ export function loadGif(
 
 /**
  * 加载普通图片（JPG/PNG）并创建 Konva.Image
- * @param src 图片文件路径
+ * @param src - 图片文件路径
  * @returns Promise<Konva.Image>
  */
 export function loadImg(src: string): Promise<Konva.Image> {
@@ -97,9 +97,9 @@ export function loadImg(src: string): Promise<Konva.Image> {
 /**
  * 播放 GIF 动画
  * 需要在 Image 添加到 Layer 之后调用
- * @param imageNode GIF 图片节点
- * @param layer 图片所在的 Layer
- * @param onFrame 每帧回调函数（可选）
+ * @param imageNode - GIF 图片节点
+ * @param layer - 图片所在的 Layer
+ * @param onFrame - 每帧回调函数（可选）
  * @returns 动画实例（可用于停止动画）
  */
 export function playGif(
@@ -124,8 +124,9 @@ export function playGif(
 
 /**
  * 根据文件类型自动选择加载方法
- * @param src 文件路径
- * @param type 文件类型（svg/gif/png/jpg 等）
+ * @param src - 文件路径
+ * @param type - 文件类型（svg/gif/png/jpg 等）
+ * @param onFrame - 每帧回调函数（可选，仅 GIF 有效）
  * @returns Promise<Konva.Image>
  */
 export async function loadAsset(
@@ -153,7 +154,7 @@ export async function loadAsset(
 
 /**
  * 预加载多个资源
- * @param assets 资源列表 [{ src, type }, ...]
+ * @param assets - 资源列表 [{ src, type }, ...]
  * @returns Promise<Konva.Image[]>
  */
 export async function preloadAssets(

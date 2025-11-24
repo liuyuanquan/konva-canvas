@@ -4,6 +4,7 @@ import { DrawGroupName } from "../types";
 
 /**
  * 绘制缩放信息（左上角显示）
+ * @param render - 内部渲染实例
  */
 export function drawScaleInfo(render: InternalRenderInstance): void {
 	const layer = render.layers.cover;

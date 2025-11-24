@@ -3,12 +3,18 @@ import flatten from "lodash-es/flatten";
 import type { InternalRenderInstance } from "../types";
 import { DrawGroupName } from "../types";
 
+/**
+ * 标尺选项
+ */
 export interface RulerOptions {
+	/** 标尺大小 */
 	size: number;
 }
 
 /**
  * 绘制标尺
+ * @param render - 内部渲染实例
+ * @param options - 标尺选项
  */
 export function drawRuler(
 	render: InternalRenderInstance,

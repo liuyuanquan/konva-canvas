@@ -10,6 +10,8 @@ export function ignoreSelect(node: Konva.Node): boolean {
 
 /**
  * 忽略各 draw 的根 group
+ * @param node - Konva 节点
+ * @returns 是否忽略
  */
 export function ignoreDraw(node: Konva.Node): boolean {
 	return (
@@ -22,6 +24,8 @@ export function ignoreDraw(node: Konva.Node): boolean {
 
 /**
  * 忽略连接线相关元素
+ * @param node - Konva 节点
+ * @returns 是否忽略
  */
 export function ignoreLink(node: Konva.Node): boolean {
 	return (
@@ -35,6 +39,8 @@ export function ignoreLink(node: Konva.Node): boolean {
 
 /**
  * 忽略非素材
+ * @param node - Konva 节点
+ * @returns 是否忽略
  */
 export function ignore(node: Konva.Node): boolean {
 	// 素材有各自根 group

@@ -122,8 +122,9 @@ onMounted(() => {
 				<MaterialPanel />
 			</aside>
 			<section
-				class="flex-1 min-w-0 overflow-hidden bg-[rgba(0,0,0,0.05)]"
+				class="flex-1 min-w-0 overflow-hidden bg-[rgba(0,0,0,0.05)] focus:outline-none"
 				ref="boardElement"
+				tabindex="1"
 			></section>
 			<footer class="shrink-0 w-[227px] flex items-center justify-center">
 				属性面板

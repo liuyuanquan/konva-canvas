@@ -4,6 +4,9 @@ import { drawBg, drawRuler, drawScaleInfo, drawReferenceLine } from "../draws";
 
 /**
  * 注册所有绘制函数
+ * @param render - 内部渲染实例
+ * @param config - 渲染器配置
+ * @param drawFunctions - 绘制函数映射表
  */
 export function registerDraws(
 	render: InternalRenderInstance,

@@ -4,6 +4,8 @@ import { DEFAULT_ZOOM_CONFIG } from "../types";
 
 /**
  * 启用滚轮缩放功能（使用默认配置）
+ * @param render - 内部渲染实例
+ * @returns 清理函数
  */
 export function enableZoom(render: InternalRenderInstance): () => void {
 	const { scaleBy, scaleMin, scaleMax } = DEFAULT_ZOOM_CONFIG;

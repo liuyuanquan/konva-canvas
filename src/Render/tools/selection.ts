@@ -4,6 +4,8 @@ import type { InternalRenderInstance, SelectionTool } from "../types";
 /**
  * 创建选择工具
  * 管理节点的选择状态和 Transformer
+ * @param render - 内部渲染实例
+ * @returns 选择工具实例
  */
 export function createSelection(render: InternalRenderInstance): SelectionTool {
 	// 选中的节点列表
@@ -11,6 +13,7 @@ export function createSelection(render: InternalRenderInstance): SelectionTool {
 
 	/**
 	 * 选择节点
+	 * @param nodes - 要选择的节点数组
 	 */
 	function select(nodes: Konva.Node[]): void {
 		if (nodes.length > 1) {
@@ -93,6 +96,7 @@ export function createSelection(render: InternalRenderInstance): SelectionTool {
 
 	/**
 	 * 清空已选
+	 * @param slient - 是否静默清空（不触发事件）
 	 */
 	function selectingClear(slient = false): void {
 		// 选择变化了
@@ -139,7 +143,10 @@ export function createSelection(render: InternalRenderInstance): SelectionTool {
 		// TODO: 确定需要重绘的 draw 名称
 	}
 
-	// 更新节点位置
+	/**
+	 * 通过偏移量移动选中的节点
+	 * @param offset - 偏移量
+	 */
 	function selectingNodesMove(offset: Konva.Vector2d) {
 		for (const node of render.selectionTool.selectingNodes) {
 			node.x(node.x() + offset.x);

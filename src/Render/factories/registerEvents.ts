@@ -10,6 +10,9 @@ import {
 
 /**
  * 注册所有事件处理（拖拽、缩放等）
+ * @param render - 内部渲染实例
+ * @param config - 渲染器配置
+ * @param cleanupFunctions - 清理函数数组
  */
 export function registerEvents(
 	render: InternalRenderInstance,
@@ -18,7 +21,6 @@ export function registerEvents(
 ): void {
 	const container = render.stage.container();
 	// 设置容器焦点
-	container.tabIndex = 1;
 	container.focus();
 
 	// 启用右键拖拽功能

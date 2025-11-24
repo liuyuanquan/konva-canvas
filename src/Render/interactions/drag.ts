@@ -4,6 +4,8 @@ import { MouseButton } from "../types";
 
 /**
  * 启用右键拖拽画布功能
+ * @param render - 内部渲染实例
+ * @returns 清理函数
  */
 export function enableDrag(render: InternalRenderInstance): () => void {
 	const stage = render.stage;
@@ -19,13 +21,11 @@ export function enableDrag(render: InternalRenderInstance): () => void {
 
 	// 鼠标按下
 	const handleMouseDown = (e: Konva.KonvaEventObject<MouseEvent>) => {
+		e.evt.preventDefault();
 		if (
 			e.evt.button === MouseButton.右键 ||
 			(e.evt.ctrlKey && e.evt.button === MouseButton.左键) // mac 拖动画布快捷键
 		) {
-			// 阻止默认行为
-			e.evt.preventDefault();
-
 			// stage 状态
 			const stageState = render.getStageState();
 
@@ -47,7 +47,8 @@ export function enableDrag(render: InternalRenderInstance): () => void {
 	};
 
 	// 鼠标移动
-	const handleMouseMove = () => {
+	const handleMouseMove = (e: Konva.KonvaEventObject<MouseEvent>) => {
+		e.evt.preventDefault();
 		if (mousedownRight) {
 			// 鼠标右键拖动
 			const pos = stage.getPointerPosition();
@@ -68,7 +69,8 @@ export function enableDrag(render: InternalRenderInstance): () => void {
 	};
 
 	// 鼠标松开
-	const handleMouseUp = () => {
+	const handleMouseUp = (e: Konva.KonvaEventObject<MouseEvent>) => {
+		e.evt.preventDefault();
 		if (mousedownRight) {
 			mousedownRight = false;
 
