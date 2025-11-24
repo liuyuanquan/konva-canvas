@@ -16,6 +16,7 @@ export {
 	MouseButton,
 	MoveKey,
 	DEFAULT_RULER_SIZE,
+	DEFAULT_BG_SIZE,
 	DEFAULT_ZOOM_CONFIG,
 	DrawGroupName,
 } from "./constants";

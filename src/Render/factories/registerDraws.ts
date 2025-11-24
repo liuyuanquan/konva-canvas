@@ -13,11 +13,11 @@ export function registerDraws(
 	config: RenderConfig,
 	drawFunctions: Map<string, () => void>
 ): void {
-	const { rulerSize } = render;
+	const { rulerSize, bgSize } = render;
 
 	// 背景
 	if (!config.readonly && config.showBg) {
-		drawFunctions.set(DrawGroupName.BG, () => drawBg(render, { size: 20 }));
+		drawFunctions.set(DrawGroupName.BG, () => drawBg(render, { size: bgSize }));
 	}
 
 	// 标尺

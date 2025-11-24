@@ -32,6 +32,7 @@ export interface CoreSetup {
 	stage: Konva.Stage;
 	layers: RenderLayers;
 	rulerSize: number;
+	bgSize: number;
 	groupTransformer: Konva.Group;
 	transformer: Konva.Transformer;
 	selectRect: Konva.Rect;
@@ -69,17 +70,9 @@ export interface RenderInstance {
 /**
  * 内部实例接口（包含所有属性和方法）
  */
-export interface InternalRenderInstance extends RenderInstance {
+export interface InternalRenderInstance extends RenderInstance, CoreSetup {
 	/** 内部属性 */
-	stage: Konva.Stage;
-	layers: RenderLayers;
-	rulerSize: number;
 	drawGroups: Map<string, Konva.Group>;
-
-	/** 选择相关 */
-	groupTransformer: Konva.Group;
-	transformer: Konva.Transformer;
-	selectRect: Konva.Rect;
 
 	/** 工具 */
 	selectionTool: SelectionTool;

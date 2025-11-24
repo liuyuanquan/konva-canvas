@@ -6,6 +6,7 @@ import {
 	enableDragOutside,
 	enableSelection,
 	enableKeyMove,
+	enableAttractResize,
 } from "../interactions";
 
 /**
@@ -43,6 +44,12 @@ export function registerEvents(
 		// 启用键盘移动功能
 		const cleanupKeyMove = enableKeyMove(render);
 		cleanupFunctions.push(cleanupKeyMove);
+	}
+
+	// 启用吸附功能（调整大小）
+	if (!config.readonly && config.attractResize) {
+		const cleanupAttractResize = enableAttractResize(render);
+		cleanupFunctions.push(cleanupAttractResize);
 	}
 
 	// 启用参考线功能（监听鼠标移动）

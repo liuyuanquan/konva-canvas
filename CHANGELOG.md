@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2025-11-23
+
+### ✨ Added
+
+#### 吸附功能增强
+
+- **吸附调整大小功能（AttractResize）**
+  - Transformer 锚点拖动时自动吸附到背景网格
+  - 支持非旋转锚点的磁贴功能
+  - 磁贴阈值：5 像素
+  - 背景网格大小可配置（默认 20 像素）
+
+- **背景网格大小常量**
+  - `DEFAULT_BG_SIZE` - 默认背景网格大小（20 像素）
+
+### 🏗️ Architecture
+
+#### 代码重构
+
+- **接口继承优化**
+  - `InternalRenderInstance` 现在同时继承 `RenderInstance` 和 `CoreSetup`
+  - 移除了重复的属性定义，代码更简洁
+
+- **配置管理优化**
+  - `bgSize` 从 `registerDraws` 中统一管理
+  - `CoreSetup` 包含 `bgSize` 属性
+  - 背景网格大小在 `createCore` 中初始化
+
+### 🔧 Changed
+
+- **函数提取和命名**
+  - `enableAttractResize` - 启用吸附调整大小功能
+  - `getAnchorDragBoundFunc` 改为内部函数
+  - 统一函数命名风格（`enableXxx`）
+
 ## [1.0.4] - 2025-11-23
 
 ### ✨ Added

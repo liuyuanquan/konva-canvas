@@ -22,6 +22,11 @@ export const MoveKey = {
 export const DEFAULT_RULER_SIZE = 40;
 
 /**
+ * 默认背景网格大小（像素）
+ */
+export const DEFAULT_BG_SIZE = 20;
+
+/**
  * 默认缩放配置
  */
 export const DEFAULT_ZOOM_CONFIG = {

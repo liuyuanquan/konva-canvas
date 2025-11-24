@@ -1,6 +1,6 @@
 import Konva from "konva";
 import type { InternalRenderInstance } from "../types";
-import { MouseButton, DrawGroupName } from "../types";
+import { MouseButton } from "../types";
 
 /**
  * 选择框状态
@@ -16,6 +16,67 @@ interface SelectionState {
 	endX: number;
 	/** 选择框结束 Y 坐标 */
 	endY: number;
+}
+
+/**
+ * 启用吸附功能（调整大小）
+ * @param render - 内部渲染实例
+ * @returns 清理函数
+ */
+export function enableAttractResize(
+	render: InternalRenderInstance
+): () => void {
+	const transformer = render.transformer;
+	const bgSize = render.bgSize; // 背景网格大小
+
+	transformer.anchorDragBoundFunc(
+		(_oldPos: Konva.Vector2d, newPos: Konva.Vector2d, _e: MouseEvent) => {
+			// 磁贴逻辑
+			// transformer 锚点按钮
+			const anchor = transformer.getActiveAnchor();
+
+			// 非旋转（就是放大缩小时）
+			if (anchor && anchor !== "rotater") {
+				// stage 状态
+				const stageState = render.getStageState();
+
+				const logicX = render.toStageValue(newPos.x - stageState.x); // x坐标
+				const logicNumX = Math.round(logicX / bgSize); // x单元格个数
+				const logicClosestX = logicNumX * bgSize; // x磁贴目标坐标
+				const logicDiffX = Math.abs(logicX - logicClosestX); // x磁贴偏移量
+				const snappedX = logicDiffX < 5; // x磁贴阈值
+
+				const logicY = render.toStageValue(newPos.y - stageState.y); // y坐标
+				const logicNumY = Math.round(logicY / bgSize); // y单元格个数
+				const logicClosestY = logicNumY * bgSize; // y磁贴目标坐标
+				const logicDiffY = Math.abs(logicY - logicClosestY); // y磁贴偏移量
+				const snappedY = logicDiffY < 5; // y磁贴阈值
+
+				if (snappedX || snappedY) {
+					// xy磁贴
+					return {
+						x: snappedX
+							? render.toBoardValue(logicClosestX) + stageState.x
+							: newPos.x,
+						y: snappedY
+							? render.toBoardValue(logicClosestY) + stageState.y
+							: newPos.y,
+					};
+				}
+			}
+
+			// 不磁贴
+			return newPos;
+		}
+	);
+
+	// 返回清理函数
+	return () => {
+		// 清除 anchorDragBoundFunc，恢复默认行为
+		transformer.anchorDragBoundFunc(
+			(_oldPos: Konva.Vector2d, newPos: Konva.Vector2d) => newPos
+		);
+	};
 }
 
 /**

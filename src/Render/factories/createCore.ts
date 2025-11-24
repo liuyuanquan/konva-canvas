@@ -1,6 +1,6 @@
 import Konva from "konva";
 import type { RenderConfig, CoreSetup } from "../types";
-import { DEFAULT_RULER_SIZE } from "../types";
+import { DEFAULT_RULER_SIZE, DEFAULT_BG_SIZE } from "../types";
 
 /**
  * 创建 Konva Stage 和 Layers
@@ -13,6 +13,7 @@ export function createCore(
 	config: RenderConfig
 ): CoreSetup {
 	const rulerSize = config.showRuler ? DEFAULT_RULER_SIZE : 0;
+	const bgSize = config.showBg ? DEFAULT_BG_SIZE : 0;
 
 	// 创建 stage
 	const stage = new Konva.Stage({
@@ -66,6 +67,7 @@ export function createCore(
 		stage,
 		layers,
 		rulerSize,
+		bgSize,
 		groupTransformer,
 		transformer,
 		selectRect,

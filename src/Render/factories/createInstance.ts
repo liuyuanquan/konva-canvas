@@ -25,6 +25,7 @@ export function createInstance(
 		stage,
 		layers,
 		rulerSize,
+		bgSize,
 		groupTransformer,
 		transformer,
 		selectRect,
@@ -42,6 +43,7 @@ export function createInstance(
 		layers,
 		config,
 		rulerSize,
+		bgSize,
 		drawGroups,
 
 		// ========== 选择相关 ==========

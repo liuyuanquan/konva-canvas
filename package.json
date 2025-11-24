@@ -1,7 +1,7 @@
 {
 	"name": "konva-canvas",
 	"private": true,
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"type": "module",
 	"description": "基于 Konva.js 和 Vue 3 的画布编辑器，支持素材拖拽、缩放、标尺等功能",
 	"author": "liuyuanquan <522703297@qq.com>",
