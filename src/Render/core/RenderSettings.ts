@@ -69,9 +69,9 @@ export class RenderSettings {
 		this.render.core.stage.setAttr("pageSettings", settings);
 		this.updateBackground();
 
-		if (update) {
-			this.render.history.update();
-		}
+		// if (update) {
+		// 	this.render.history.update();
+		// }
 	}
 
 	/**
@@ -226,9 +226,9 @@ export class RenderSettings {
 			}
 		}
 
-		if (update) {
-			this.render.history.update();
-		}
+		// if (update) {
+		// 	this.render.history.update();
+		// }
 
 		this.render.draws[Draws.BgDraw.name]?.draw();
 	}
@@ -292,9 +292,9 @@ export class RenderSettings {
 			}
 		}
 
-		if (update) {
-			this.render.history.update();
-		}
+		// if (update) {
+		// 	this.render.history.update();
+		// }
 
 		this.render.draws[Draws.BgDraw.name]?.draw();
 	}

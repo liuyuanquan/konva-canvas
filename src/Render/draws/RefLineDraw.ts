@@ -1,93 +1,101 @@
-import _ from 'lodash-es'
-import Konva from 'konva'
+import flatten from "lodash-es/flatten";
+import Konva from "konva";
 //
-import * as Types from '../types'
-import { BaseDraw } from './BaseDraw'
+import * as Types from "../types";
+import { BaseDraw } from "./BaseDraw";
 
 export interface RefLineDrawOption {
-  padding: number
+	padding: number;
 }
 
 export class RefLineDraw extends BaseDraw implements Types.Draw, Types.Handler {
-  static override readonly name = 'refLine'
+	static override readonly name = "refLine";
 
-  option: RefLineDrawOption
+	option: RefLineDrawOption;
 
-  constructor(render: Types.Render, layer: Konva.Layer, option: RefLineDrawOption) {
-    super(render, layer)
+	constructor(
+		render: Types.Render,
+		layer: Konva.Layer,
+		option: RefLineDrawOption
+	) {
+		super(render, layer);
 
-    this.option = option
+		this.option = option;
 
-    this.group.listening(false)
-  }
+		this.group.listening(false);
+	}
 
-  override draw() {
-    this.clear()
+	override draw() {
+		this.clear();
 
-    // stage 状态
-    const stageState = this.render.getStageState()
+		// stage 状态
+		const stageState = this.render.getStageState();
 
-    const group = new Konva.Group()
+		const group = new Konva.Group();
 
-    const pos = this.render.stage.getPointerPosition()
-    if (pos) {
-      if (pos.y >= this.option.padding) {
-        // 横
-        group.add(
-          new Konva.Line({
-            name: this.constructor.name,
-            points: _.flatten([
-              [
-                this.render.toStageValue(-stageState.x),
-                this.render.toStageValue(pos.y - stageState.y)
-              ],
-              [
-                this.render.toStageValue(stageState.width - stageState.x + this.render.rulerSize),
-                this.render.toStageValue(pos.y - stageState.y)
-              ]
-            ]),
-            stroke: 'rgba(255,0,0,0.2)',
-            strokeWidth: this.render.toStageValue(1),
-            listening: false
-          })
-        )
-      }
+		const pos = this.render.stage.getPointerPosition();
+		if (pos) {
+			if (pos.y >= this.option.padding) {
+				// 横
+				group.add(
+					new Konva.Line({
+						name: this.constructor.name,
+						points: flatten([
+							[
+								this.render.toStageValue(-stageState.x),
+								this.render.toStageValue(pos.y - stageState.y),
+							],
+							[
+								this.render.toStageValue(
+									stageState.width - stageState.x + this.render.rulerSize
+								),
+								this.render.toStageValue(pos.y - stageState.y),
+							],
+						]),
+						stroke: "rgba(255,0,0,0.2)",
+						strokeWidth: this.render.toStageValue(1),
+						listening: false,
+					})
+				);
+			}
 
-      if (pos.x >= this.option.padding) {
-        // 竖
-        group.add(
-          new Konva.Line({
-            name: this.constructor.name,
-            points: _.flatten([
-              [
-                this.render.toStageValue(pos.x - stageState.x),
-                this.render.toStageValue(-stageState.y)
-              ],
-              [
-                this.render.toStageValue(pos.x - stageState.x),
-                this.render.toStageValue(stageState.height - stageState.y + this.render.rulerSize)
-              ]
-            ]),
-            stroke: 'rgba(255,0,0,0.2)',
-            strokeWidth: this.render.toStageValue(1),
-            listening: false
-          })
-        )
-      }
-    }
-    this.group.add(group)
-  }
+			if (pos.x >= this.option.padding) {
+				// 竖
+				group.add(
+					new Konva.Line({
+						name: this.constructor.name,
+						points: flatten([
+							[
+								this.render.toStageValue(pos.x - stageState.x),
+								this.render.toStageValue(-stageState.y),
+							],
+							[
+								this.render.toStageValue(pos.x - stageState.x),
+								this.render.toStageValue(
+									stageState.height - stageState.y + this.render.rulerSize
+								),
+							],
+						]),
+						stroke: "rgba(255,0,0,0.2)",
+						strokeWidth: this.render.toStageValue(1),
+						listening: false,
+					})
+				);
+			}
+		}
+		this.group.add(group);
+	}
 
-  handlers = {
-    dom: {
-      mousemove: () => {
-        // 更新参考线
-        this.draw()
-      },
-      mouseout: () => {
-        // 清除参考线
-        this.clear()
-      }
-    }
-  }
+	handlers = {
+		dom: {
+			mousemove: () => {
+				// 更新参考线
+				this.draw();
+			},
+			mouseout: () => {
+				// 清除参考线
+				this.clear();
+			},
+		},
+	};
 }

@@ -1,4 +1,4 @@
-import _ from "lodash-es";
+import flatten from "lodash-es/flatten";
 import Konva from "konva";
 //
 import * as Types from "../types";
@@ -76,7 +76,7 @@ export class BgDraw extends BaseDraw implements Types.Draw {
 			group.add(
 				new Konva.Line({
 					name: this.constructor.name,
-					points: _.flatten([
+					points: flatten([
 						[
 							cellSize * x,
 							this.toStageValue(-stageState.y + this.render.rulerSize),
@@ -100,7 +100,7 @@ export class BgDraw extends BaseDraw implements Types.Draw {
 			group.add(
 				new Konva.Line({
 					name: this.constructor.name,
-					points: _.flatten([
+					points: flatten([
 						[
 							this.toStageValue(-stageState.x + this.render.rulerSize),
 							cellSize * y,

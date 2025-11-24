@@ -1,7 +1,7 @@
 import Konva from "konva";
 import { nanoid } from "nanoid";
 //
-import { Render } from "../index";
+// import { Render } from "../index";
 import * as Types from "../types";
 //
 import * as Draws from "../draws";
