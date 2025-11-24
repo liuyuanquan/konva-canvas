@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { createRender, type RenderInstance } from "./Render";
+import { Render } from "./Render";
 import MaterialPanel from "./components/MaterialPanel.vue";
 
 // 容器
 const boardElement = ref<HTMLDivElement>();
 
 // 渲染器
-let render = shallowRef<RenderInstance | null>(null);
+let render = shallowRef<Render | null>(null);
 
 const resizer = (() => {
 	// 监听器实例
@@ -81,7 +81,7 @@ const init = () => {
 		resize: (width, height) => {
 			if (!render.value) {
 				// 初始化渲染
-				render.value = createRender(boardElement.value!, {
+				render.value = new Render(boardElement.value!, {
 					width,
 					height,
 					//

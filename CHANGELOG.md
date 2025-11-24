@@ -5,6 +5,79 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-11-24
+
+### 🏗️ Architecture
+
+#### 核心架构重构
+
+- **模块化核心系统**
+
+  - 新增 `core/` 模块，统一管理核心功能
+  - `RenderCore` - 管理 Stage、Layers 和基础初始化
+  - `RenderEvents` - 统一事件管理
+  - `RenderUtils` - 工具函数集合
+  - `RenderSettings` - 设置管理
+
+- **类继承体系优化**
+
+  - `BaseDraw` - 所有绘制类的基类，提供统一的绘制接口
+  - `BaseHandler` - 所有事件处理器的基类
+  - `BaseTool` - 所有工具的基类
+  - 统一的命名规范和接口设计
+
+- **目录结构重组**
+  - `core/` - 核心模块（RenderCore, RenderEvents, RenderUtils, RenderSettings）
+  - `handlers/` - 事件处理器（DragHandlers, ZoomHandlers, SelectionHandlers 等）
+  - `tools/` - 工具类（AssetTool, SelectionTool, CopyTool, AttractTool）
+  - `draws/` - 绘制类（BgDraw, RulerDraw, ScaleInfoDraw, RefLineDraw 等）
+  - `utils/` - 工具函数（aStar 等）
+
+### 🔧 Changed
+
+#### 代码组织优化
+
+- **移除旧的工厂模式**
+
+  - 删除 `factories/` 目录
+  - 删除 `interactions/` 目录
+  - 统一使用类继承模式
+
+- **类型定义统一**
+
+  - 合并所有类型定义到 `types.ts`
+  - 简化类型导入和使用
+
+- **文件命名规范化**
+  - 所有 Draw 类统一以 `Draw` 结尾
+  - 所有 Handler 类统一以 `Handlers` 结尾
+  - 所有 Tool 类统一以 `Tool` 结尾
+
+### ✨ Added
+
+#### 新增功能模块
+
+- **BaseDraw 基类**
+
+  - 统一的绘制接口
+  - 自动管理 group 生命周期
+  - 提供 `toStageValue` 和 `toBoardValue` 转换方法
+
+- **BaseHandler 基类**
+
+  - 统一的事件处理器接口
+  - 统一的事件注册和清理机制
+
+- **BaseTool 基类**
+  - 统一的工具接口
+  - 统一的工具生命周期管理
+
+### 🐛 Bug Fixes
+
+- **修复 ScaleInfoDraw 位置问题**
+  - 优化缩放信息显示位置计算
+  - 改进文本对齐方式
+
 ## [1.0.6] - 2025-11-23
 
 ### 🏗️ Architecture
@@ -12,11 +85,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### 事件处理系统重构
 
 - **统一事件处理器返回格式**
+
   - 所有 interaction 函数统一返回 `EventHandlers` 对象
   - 包含 `dom`、`stage`、`transformer` 三个事件处理器映射
   - 使用 `Record` 类型替代 `Map`，代码更简洁
 
 - **事件注册优化**
+
   - `registerEvents` 统一管理所有事件处理器
   - 提取 `mergeHandlers`、`bindContainerEvents`、`bindKonvaEvents` 辅助函数
   - 减少代码重复，提高可维护性
@@ -48,6 +123,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### 吸附功能增强
 
 - **吸附调整大小功能（AttractResize）**
+
   - Transformer 锚点拖动时自动吸附到背景网格
   - 支持非旋转锚点的磁贴功能
   - 磁贴阈值：5 像素
@@ -61,6 +137,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### 代码重构
 
 - **接口继承优化**
+
   - `InternalRenderInstance` 现在同时继承 `RenderInstance` 和 `CoreSetup`
   - 移除了重复的属性定义，代码更简洁
 

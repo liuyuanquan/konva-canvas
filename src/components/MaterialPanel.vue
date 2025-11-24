@@ -453,14 +453,9 @@ const activeNames = ref("vector");
 // 拖拽素材
 const handleDragStart = (item: MaterialItem, e: DragEvent) => {
 	if (e.dataTransfer) {
-		e.dataTransfer.effectAllowed = "copy";
-		// 传递素材数据
-		const dragData = {
-			url: item.preview,
-			type: item.preview?.split(".").pop() || "unknown",
-			...item,
-		};
-		e.dataTransfer.setData("application/json", JSON.stringify(dragData));
+		e.dataTransfer.setData("src", item.preview ?? "");
+		e.dataTransfer.setData("points", JSON.stringify(item.points)); // 传递连接点信息
+		e.dataTransfer.setData("type", item.preview?.split(".").pop() || "unknown");
 	}
 };
 </script>

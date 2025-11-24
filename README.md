@@ -41,22 +41,33 @@ pnpm preview
 ```
 src/
 ├── Render/                  # 渲染器核心模块
-│   ├── types/              # 类型定义
-│   │   ├── config.ts       # 配置类型
-│   │   ├── instance.ts     # 实例类型
-│   │   ├── constants.ts    # 常量
+│   ├── core/               # 核心模块
+│   │   ├── RenderCore.ts   # Stage、Layers 管理
+│   │   ├── RenderEvents.ts # 事件管理
+│   │   ├── RenderUtils.ts  # 工具函数
+│   │   ├── RenderSettings.ts # 设置管理
 │   │   └── index.ts        # 统一导出
-│   ├── factories/          # 工厂函数
-│   │   ├── createCore.ts   # 创建 Konva Stage 和 Layers
-│   │   ├── createInstance.ts   # 创建渲染实例
-│   │   ├── registerDraws.ts    # 注册绘制函数
-│   │   └── registerEvents.ts   # 注册事件处理
-│   ├── draws/              # 绘制功能
-│   │   ├── background.ts   # 背景网格绘制
-│   │   └── ruler.ts        # 标尺绘制
-│   ├── interactions/       # 交互功能
-│   │   ├── drag.ts         # 拖拽功能
-│   │   └── zoom.ts         # 缩放功能
+│   ├── handlers/           # 事件处理器
+│   │   ├── BaseHandler.ts  # 处理器基类
+│   │   ├── DragHandlers.ts # 拖拽处理
+│   │   ├── ZoomHandlers.ts # 缩放处理
+│   │   ├── SelectionHandlers.ts # 选择处理
+│   │   └── ...             # 其他处理器
+│   ├── tools/              # 工具类
+│   │   ├── BaseTool.ts     # 工具基类
+│   │   ├── AssetTool.ts    # 素材工具
+│   │   ├── SelectionTool.ts # 选择工具
+│   │   ├── CopyTool.ts     # 复制工具
+│   │   └── AttractTool.ts  # 磁贴工具
+│   ├── draws/              # 绘制类
+│   │   ├── BaseDraw.ts     # 绘制基类
+│   │   ├── BgDraw.ts       # 背景网格
+│   │   ├── RulerDraw.ts    # 标尺
+│   │   ├── ScaleInfoDraw.ts # 缩放信息
+│   │   └── ...             # 其他绘制类
+│   ├── utils/              # 工具函数
+│   │   └── aStar.ts        # A* 算法
+│   ├── types.ts            # 类型定义
 │   └── index.ts            # 主入口
 └── App.vue                 # 应用入口
 ```
@@ -103,7 +114,8 @@ render.destroy();
 
 ### 设计模式
 
-- **工厂模式** - 使用工厂函数创建和初始化对象
+- **类继承模式** - 使用基类（BaseDraw、BaseHandler、BaseTool）统一接口
+- **模块化设计** - 核心功能拆分为独立模块（core/handlers/tools/draws）
 - **观察者模式** - 事件监听和处理
 - **策略模式** - 不同的绘制和交互策略
 - **封装原则** - 隐藏内部实现，暴露公共 API
