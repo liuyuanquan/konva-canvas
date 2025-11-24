@@ -24,3 +24,6 @@ export type { DrawGroupNameType } from "./constants";
 
 // 工具相关
 export type { SelectionTool } from "./tools";
+
+// 事件相关
+export type { EventHandlers } from "./events";

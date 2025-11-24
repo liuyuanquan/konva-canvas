@@ -1,13 +1,13 @@
 import Konva from "konva";
-import type { InternalRenderInstance } from "../types";
+import type { InternalRenderInstance, EventHandlers } from "../types";
 import { MouseButton } from "../types";
 
 /**
  * 启用右键拖拽画布功能
  * @param render - 内部渲染实例
- * @returns 清理函数
+ * @returns 事件处理器映射
  */
-export function enableDrag(render: InternalRenderInstance): () => void {
+export function enableDrag(render: InternalRenderInstance): EventHandlers {
 	const stage = render.stage;
 
 	let mousedownRight = false;
@@ -81,17 +81,15 @@ export function enableDrag(render: InternalRenderInstance): () => void {
 		}
 	};
 
-	// 绑定事件
-	stage.on("contextmenu", handleContextMenu);
-	stage.on("mousedown", handleMouseDown);
-	stage.on("mousemove", handleMouseMove);
-	stage.on("mouseup", handleMouseUp);
-
-	// 返回清理函数
-	return () => {
-		stage.off("contextmenu", handleContextMenu);
-		stage.off("mousedown", handleMouseDown);
-		stage.off("mousemove", handleMouseMove);
-		stage.off("mouseup", handleMouseUp);
+	// 返回事件处理器映射
+	return {
+		dom: {},
+		stage: {
+			contextmenu: handleContextMenu,
+			mousedown: handleMouseDown,
+			mousemove: handleMouseMove,
+			mouseup: handleMouseUp,
+		},
+		transformer: {},
 	};
 }

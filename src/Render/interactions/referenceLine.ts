@@ -1,23 +1,23 @@
-import type { InternalRenderInstance } from "../types";
+import type { InternalRenderInstance, EventHandlers } from "../types";
 import { DrawGroupName } from "../types";
 
 /**
  * 启用参考线功能（监听鼠标移动）
  * @param render - 内部渲染实例
- * @returns 清理函数
+ * @returns 事件处理器映射
  */
 export function enableReferenceLine(
 	render: InternalRenderInstance
-): () => void {
-	const container = render.stage.container();
-
-	const handleMouseMove = (e: MouseEvent) => {
-		e.preventDefault();
+): EventHandlers {
+	const handleMouseMove = () => {
 		render.redraw([DrawGroupName.REFERENCE_LINE]);
 	};
 
-	const handleMouseOut = (e: MouseEvent) => {
-		e.preventDefault();
+	const handleMouseEnter = () => {
+		render.redraw([DrawGroupName.REFERENCE_LINE]);
+	};
+
+	const handleMouseOut = () => {
 		// 鼠标移出时，清除参考线
 		const group = render.drawGroups.get(DrawGroupName.REFERENCE_LINE);
 		if (group) {
@@ -26,12 +26,14 @@ export function enableReferenceLine(
 		}
 	};
 
-	container.addEventListener("mousemove", handleMouseMove);
-	container.addEventListener("mouseout", handleMouseOut);
-
-	// 返回清理函数
-	return () => {
-		container.removeEventListener("mousemove", handleMouseMove);
-		container.removeEventListener("mouseout", handleMouseOut);
+	// 返回事件处理器映射
+	return {
+		dom: {
+			mouseenter: handleMouseEnter,
+			mousemove: handleMouseMove,
+			mouseout: handleMouseOut,
+		},
+		stage: {},
+		transformer: {},
 	};
 }

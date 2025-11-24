@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2025-11-23
+
+### 🏗️ Architecture
+
+#### 事件处理系统重构
+
+- **统一事件处理器返回格式**
+  - 所有 interaction 函数统一返回 `EventHandlers` 对象
+  - 包含 `dom`、`stage`、`transformer` 三个事件处理器映射
+  - 使用 `Record` 类型替代 `Map`，代码更简洁
+
+- **事件注册优化**
+  - `registerEvents` 统一管理所有事件处理器
+  - 提取 `mergeHandlers`、`bindContainerEvents`、`bindKonvaEvents` 辅助函数
+  - 减少代码重复，提高可维护性
+
+- **类型定义优化**
+  - 新增 `types/events.ts` - 事件处理器类型定义
+  - `EventHandlers` 接口统一管理事件处理器类型
+  - 避免循环依赖，类型定义更清晰
+
+### 🔧 Changed
+
+#### 代码优化
+
+- **移除中间变量** - 所有 interaction 函数直接返回对象字面量
+- **提取重复代码** - `referenceLine.ts` 提取公共重绘逻辑
+- **修复 import 顺序** - `selection.ts` 将 import 移到文件顶部
+- **代码结构优化** - `registerEvents.ts` 调整函数定义和调用顺序
+
+#### 函数签名统一
+
+- 所有 `enableXxx` 函数统一返回 `EventHandlers` 类型
+- 统一使用对象字面量定义事件处理器
+- 代码风格更加一致
+
 ## [1.0.5] - 2025-11-23
 
 ### ✨ Added

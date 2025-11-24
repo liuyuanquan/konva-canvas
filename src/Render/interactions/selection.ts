@@ -1,5 +1,5 @@
 import Konva from "konva";
-import type { InternalRenderInstance } from "../types";
+import type { InternalRenderInstance, EventHandlers } from "../types";
 import { MouseButton } from "../types";
 
 /**
@@ -82,12 +82,9 @@ export function enableAttractResize(
 /**
  * 启用选择框功能
  * @param render - 内部渲染实例
- * @returns 清理函数
+ * @returns 事件处理器映射
  */
-export function enableSelection(render: InternalRenderInstance): () => void {
-	const stage = render.stage;
-	const transformer = render.transformer;
-
+export function enableSelection(render: InternalRenderInstance): EventHandlers {
 	// 选择框状态
 	const state: SelectionState = {
 		selecting: false,
@@ -486,34 +483,24 @@ export function enableSelection(render: InternalRenderInstance): () => void {
 		// render.redraw([DrawGroupName.RULER]);
 	};
 
-	// 绑定事件
-	stage.on("mousedown", handleMouseDown);
-	stage.on("mousemove", handleMouseMove);
-	stage.on("mouseup", handleMouseUp);
-
-	transformer.on("mousedown", handleTransformerMouseDown);
-	transformer.on("mousemove", handleTransformerMouseMove);
-	transformer.on("mouseleave", handleTransformerMouseLeave);
-	transformer.on("dragstart", handleTransformerDragStart);
-	transformer.on("dragmove", handleTransformerDragMove);
-	transformer.on("dragend", handleTransformerDragEnd);
-	transformer.on("transformstart", handleTransformerTransformStart);
-	transformer.on("transform", handleTransformerTransform);
-	transformer.on("transformend", handleTransformerTransformEnd);
-
-	// 返回清理函数
-	return () => {
-		stage.off("mousedown", handleMouseDown);
-		stage.off("mousemove", handleMouseMove);
-		stage.off("mouseup", handleMouseUp);
-		transformer.off("mousedown", handleTransformerMouseDown);
-		transformer.off("mousemove", handleTransformerMouseMove);
-		transformer.off("mouseleave", handleTransformerMouseLeave);
-		transformer.off("dragstart", handleTransformerDragStart);
-		transformer.off("dragmove", handleTransformerDragMove);
-		transformer.off("dragend", handleTransformerDragEnd);
-		transformer.off("transformstart", handleTransformerTransformStart);
-		transformer.off("transform", handleTransformerTransform);
-		transformer.off("transformend", handleTransformerTransformEnd);
+	// 返回事件处理器映射
+	return {
+		dom: {},
+		stage: {
+			mousedown: handleMouseDown,
+			mousemove: handleMouseMove,
+			mouseup: handleMouseUp,
+		},
+		transformer: {
+			mousedown: handleTransformerMouseDown,
+			mousemove: handleTransformerMouseMove,
+			mouseleave: handleTransformerMouseLeave,
+			dragstart: handleTransformerDragStart,
+			dragmove: handleTransformerDragMove,
+			dragend: handleTransformerDragEnd,
+			transformstart: handleTransformerTransformStart,
+			transform: handleTransformerTransform,
+			transformend: handleTransformerTransformEnd,
+		},
 	};
 }

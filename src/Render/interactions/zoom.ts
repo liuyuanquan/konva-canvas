@@ -1,13 +1,13 @@
 import Konva from "konva";
-import type { InternalRenderInstance } from "../types";
+import type { InternalRenderInstance, EventHandlers } from "../types";
 import { DEFAULT_ZOOM_CONFIG } from "../types";
 
 /**
  * 启用滚轮缩放功能（使用默认配置）
  * @param render - 内部渲染实例
- * @returns 清理函数
+ * @returns 事件处理器映射
  */
-export function enableZoom(render: InternalRenderInstance): () => void {
+export function enableZoom(render: InternalRenderInstance): EventHandlers {
 	const { scaleBy, scaleMin, scaleMax } = DEFAULT_ZOOM_CONFIG;
 
 	const stage = render.stage;
@@ -55,11 +55,12 @@ export function enableZoom(render: InternalRenderInstance): () => void {
 		}
 	};
 
-	// 绑定事件
-	stage.on("wheel", handleWheel);
-
-	// 返回清理函数
-	return () => {
-		stage.off("wheel", handleWheel);
+	// 返回事件处理器映射
+	return {
+		dom: {},
+		stage: {
+			wheel: handleWheel,
+		},
+		transformer: {},
 	};
 }

@@ -1,21 +1,20 @@
 import Konva from "konva";
-import type { InternalRenderInstance } from "../types";
+import type { InternalRenderInstance, EventHandlers } from "../types";
 import { DrawGroupName } from "../types";
 import { loadAsset, playGif } from "../utils";
 
 /**
  * 启用外部拖拽放置功能（从素材面板拖拽到画布）
  * @param render - 内部渲染实例
- * @returns 清理函数
+ * @returns 事件处理器映射
  */
-export function enableDragOutside(render: InternalRenderInstance): () => void {
-	const container = render.stage.container();
-
+export function enableDragOutside(
+	render: InternalRenderInstance
+): EventHandlers {
 	// 处理拖拽进入
-	const handleDragEnter = (e: GlobalEventHandlersEventMap["dragenter"]) => {
-		e.preventDefault();
-		if (e.dataTransfer) {
-			e.dataTransfer.dropEffect = "copy";
+	const handleDragEnter = (e: Event) => {
+		if ((e as DragEvent).dataTransfer) {
+			(e as DragEvent).dataTransfer!.dropEffect = "copy";
 		}
 		render.stage.setPointersPositions(e);
 
@@ -24,10 +23,9 @@ export function enableDragOutside(render: InternalRenderInstance): () => void {
 	};
 
 	// 处理拖拽悬停
-	const handleDragOver = (e: GlobalEventHandlersEventMap["dragover"]) => {
-		e.preventDefault();
-		if (e.dataTransfer) {
-			e.dataTransfer.dropEffect = "copy";
+	const handleDragOver = (e: Event) => {
+		if ((e as DragEvent).dataTransfer) {
+			(e as DragEvent).dataTransfer!.dropEffect = "copy";
 		}
 		render.stage.setPointersPositions(e);
 
@@ -35,12 +33,17 @@ export function enableDragOutside(render: InternalRenderInstance): () => void {
 		render.redraw([DrawGroupName.REFERENCE_LINE]);
 	};
 
+	// 处理拖拽离开
+	const handleDragLeave = (_e: Event) => {
+		// 拖拽离开时的处理逻辑
+	};
+
 	// 处理放置
-	const handleDrop = (e: GlobalEventHandlersEventMap["drop"]) => {
-		e.preventDefault();
-		if (!e.dataTransfer) return;
+	const handleDrop = (e: Event) => {
+		const dataTransfer = (e as DragEvent).dataTransfer;
+		if (!dataTransfer) return;
 		try {
-			const data = JSON.parse(e.dataTransfer.getData("application/json"));
+			const data = JSON.parse(dataTransfer.getData("application/json"));
 
 			// 从中取出 src 和 type
 			const src = data.url || data.preview;
@@ -104,15 +107,15 @@ export function enableDragOutside(render: InternalRenderInstance): () => void {
 		}
 	};
 
-	// 绑定事件
-	container.addEventListener("dragenter", handleDragEnter);
-	container.addEventListener("dragover", handleDragOver);
-	container.addEventListener("drop", handleDrop);
-
-	// 返回清理函数
-	return () => {
-		container.removeEventListener("dragenter", handleDragEnter);
-		container.removeEventListener("dragover", handleDragOver);
-		container.removeEventListener("drop", handleDrop);
+	// 返回事件处理器映射
+	return {
+		dom: {
+			dragenter: handleDragEnter,
+			dragover: handleDragOver,
+			dragleave: handleDragLeave,
+			drop: handleDrop,
+		},
+		stage: {},
+		transformer: {},
 	};
 }

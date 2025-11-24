@@ -1,14 +1,12 @@
-import type { InternalRenderInstance } from "../types";
+import type { InternalRenderInstance, EventHandlers } from "../types";
 import { MoveKey, DrawGroupName } from "../types";
 
 /**
  * 启用键盘移动功能
  * @param render - 内部渲染实例
- * @returns 清理函数
+ * @returns 事件处理器映射
  */
-export function enableKeyMove(render: InternalRenderInstance): () => void {
-	const container = render.stage.container();
-
+export function enableKeyMove(render: InternalRenderInstance): EventHandlers {
 	let speed = 1;
 	const speedMax = 20;
 
@@ -18,17 +16,18 @@ export function enableKeyMove(render: InternalRenderInstance): () => void {
 		// TODO: 实现历史记录功能
 	};
 
-	const handleKeyDown = (e: KeyboardEvent) => {
-		if (!e.ctrlKey) {
+	const handleKeyDown = (e: Event) => {
+		const keyEvent = e as KeyboardEvent;
+		if (!keyEvent.ctrlKey) {
 			const moveKeys = Object.values(MoveKey) as string[];
-			if (moveKeys.includes(e.code)) {
-				if (e.code === MoveKey.上) {
+			if (moveKeys.includes(keyEvent.code)) {
+				if (keyEvent.code === MoveKey.上) {
 					render.selectionTool.selectingNodesMove({ x: 0, y: -speed });
-				} else if (e.code === MoveKey.左) {
+				} else if (keyEvent.code === MoveKey.左) {
 					render.selectionTool.selectingNodesMove({ x: -speed, y: 0 });
-				} else if (e.code === MoveKey.右) {
+				} else if (keyEvent.code === MoveKey.右) {
 					render.selectionTool.selectingNodesMove({ x: speed, y: 0 });
-				} else if (e.code === MoveKey.下) {
+				} else if (keyEvent.code === MoveKey.下) {
 					render.selectionTool.selectingNodesMove({ x: 0, y: speed });
 				}
 
@@ -52,19 +51,18 @@ export function enableKeyMove(render: InternalRenderInstance): () => void {
 		}
 	};
 
-	const handleKeyUp = (e: KeyboardEvent) => {
-		e.preventDefault();
+	const handleKeyUp = () => {
 		// 重置速度
 		speed = 1;
 	};
 
-	// 绑定事件
-	container.addEventListener("keydown", handleKeyDown);
-	container.addEventListener("keyup", handleKeyUp);
-
-	// 返回清理函数
-	return () => {
-		container.removeEventListener("keydown", handleKeyDown);
-		container.removeEventListener("keyup", handleKeyUp);
+	// 返回事件处理器映射
+	return {
+		dom: {
+			keydown: handleKeyDown,
+			keyup: handleKeyUp,
+		},
+		stage: {},
+		transformer: {},
 	};
 }
