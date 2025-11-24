@@ -1,6 +1,5 @@
 import Konva from 'konva'
 //
-import { Render } from '../index'
 import * as Types from '../types'
 import * as Draws from '../draws'
 import { BaseHandler } from './BaseHandler'
@@ -396,7 +395,7 @@ export class SelectionHandlers extends BaseHandler {
 
           // 更新坐标记录
           for (const group of groups) {
-            this.render.setAssetSettings(group, this.render.getAssetSettings(group), false)
+            this.render.setAssetSettings(group, this.render.getAssetSettings(group))
           }
 
           this.render.emit('asset-position-change', groups)
@@ -493,7 +492,7 @@ export class SelectionHandlers extends BaseHandler {
 
         // 更新坐标记录
         for (const group of groups) {
-          this.render.setAssetSettings(group, this.render.getAssetSettings(group), false)
+          this.render.setAssetSettings(group, this.render.getAssetSettings(group))
         }
 
         this.render.emit('asset-position-change', groups)
@@ -565,7 +564,7 @@ export class SelectionHandlers extends BaseHandler {
   // transformer config
   transformerConfig = {
     // 变换中
-    anchorDragBoundFunc: (oldPos: Konva.Vector2d, newPos: Konva.Vector2d) => {
+    anchorDragBoundFunc: (_oldPos: Konva.Vector2d, newPos: Konva.Vector2d) => {
       // 磁贴逻辑
 
       if (!this.render.config.readonly && this.render.config.attractResize) {

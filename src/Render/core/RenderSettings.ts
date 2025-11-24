@@ -65,7 +65,7 @@ export class RenderSettings {
 	/**
 	 * 更新页面设置
 	 */
-	setPageSettings(settings: Types.PageSettings, update = false) {
+	setPageSettings(settings: Types.PageSettings) {
 		this.render.core.stage.setAttr("pageSettings", settings);
 		this.updateBackground();
 
@@ -132,11 +132,7 @@ export class RenderSettings {
 	/**
 	 * 更新素材设置
 	 */
-	async setAssetSettings(
-		asset: Konva.Node,
-		settings: Types.AssetSettings,
-		update = false
-	) {
+	async setAssetSettings(asset: Konva.Node, settings: Types.AssetSettings) {
 		asset.setAttr("assetSettings", settings);
 
 		if (asset instanceof Konva.Group) {
@@ -269,11 +265,7 @@ export class RenderSettings {
 	/**
 	 * 更新连接线设置
 	 */
-	async setLinkSettings(
-		link: Konva.Line,
-		settings: Types.LinkSettings,
-		update = false
-	) {
+	async setLinkSettings(link: Konva.Line, settings: Types.LinkSettings) {
 		const group = this.render.core.layer.findOne(`#${link.attrs.groupId}`);
 		if (Array.isArray(group?.attrs.points)) {
 			const point = (group?.attrs.points as Types.LinkDrawPoint[]).find(

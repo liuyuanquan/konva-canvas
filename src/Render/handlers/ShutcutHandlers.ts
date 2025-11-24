@@ -1,4 +1,3 @@
-import { Render } from '../index'
 import * as Types from '../types'
 import { BaseHandler } from './BaseHandler'
 

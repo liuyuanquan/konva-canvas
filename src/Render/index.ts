@@ -496,8 +496,8 @@ export class Render {
 		return this.settings.getPageSettings();
 	}
 
-	setPageSettings(settings: Types.PageSettings, update = false) {
-		this.settings.setPageSettings(settings, update);
+	setPageSettings(settings: Types.PageSettings) {
+		this.settings.setPageSettings(settings);
 	}
 
 	getBackground() {
@@ -524,20 +524,12 @@ export class Render {
 		this.utils.rotateAroundCenter(node, rotation);
 	}
 
-	async setAssetSettings(
-		asset: Konva.Node,
-		settings: Types.AssetSettings,
-		update = false
-	) {
-		return this.settings.setAssetSettings(asset, settings, update);
+	async setAssetSettings(asset: Konva.Node, settings: Types.AssetSettings) {
+		return this.settings.setAssetSettings(asset, settings);
 	}
 
-	async setLinkSettings(
-		link: Konva.Line,
-		settings: Types.LinkSettings,
-		update = false
-	) {
-		return this.settings.setLinkSettings(link, settings, update);
+	async setLinkSettings(link: Konva.Line, settings: Types.LinkSettings) {
+		return this.settings.setLinkSettings(link, settings);
 	}
 
 	getLinkSettings(link?: Konva.Line): Types.LinkSettings {

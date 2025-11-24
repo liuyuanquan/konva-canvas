@@ -1,8 +1,5 @@
 import Konva from 'konva'
 //
-import { Render } from '../index'
-//
-import * as Draws from '../draws'
 import { BaseTool } from './BaseTool'
 
 const gifler = window.gifler
@@ -49,7 +46,7 @@ export class AssetTool extends BaseTool {
 
           this.render.layer.draw()
           // 更新预览（layer）
-          this.render.draws[Draws.PreviewDraw.name]?.layer.draw()
+          // this.render.draws[Draws.PreviewDraw.name]?.layer.draw() // PreviewDraw 已删除
         })
 
         img.remove()
@@ -82,10 +79,10 @@ export class AssetTool extends BaseTool {
       const json = JSON.parse(await (await fetch(src)).text())
 
       // 子素材
-      const assets = json.children
+      // const assets = json.children
 
       // 刷新id
-      this.render.linkTool.jsonIdCover(assets)
+      // this.render.linkTool.jsonIdCover(assets) // LinkTool 已删除
 
       // 生成空白 stage+layer
       const stageEmpty = new Konva.Stage({

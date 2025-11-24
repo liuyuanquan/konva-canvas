@@ -1,10 +1,7 @@
-import _ from 'lodash-es'
+import * as _ from 'lodash-es'
 import { nanoid } from 'nanoid'
 import Konva from 'konva'
 //
-import { Render } from '../index'
-//
-import * as Draws from '../draws'
 import * as Types from '../types'
 import { BaseTool } from './BaseTool'
 

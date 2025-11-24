@@ -85,8 +85,7 @@ export class DragOutsideHandlers extends BaseHandler {
 
 								this.render.setAssetSettings(
 									group,
-									this.render.getAssetSettings(),
-									false
+									this.render.getAssetSettings()
 								);
 
 								group.add(target);
@@ -143,8 +142,7 @@ export class DragOutsideHandlers extends BaseHandler {
 							// 更新坐标记录
 							this.render.setAssetSettings(
 								group,
-								this.render.getAssetSettings(group),
-								false
+								this.render.getAssetSettings(group)
 							);
 
 							// 自定义连接点 覆盖 默认连接点
